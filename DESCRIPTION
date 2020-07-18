@@ -1,0 +1,33 @@
+Package: clustering
+Title: R-Course Project 13: Clustering
+Version: 0.0.0.9000
+Authors@R: 
+    c(
+      person(  given = "Mitodru",
+               family = "Niyogi",
+               role = c("aut", "cre"),
+               email = "Mitodru.Niyogi@stud.uni-heidelberg.de",
+               comment = c(ORCID = "YOUR-ORCID-ID")),
+       person( given = "Fabian",
+               family = "Chrubasik",
+               role = c("aut", "cre"),
+               email = "Chrubasik@stud.uni-heidelberg.de",
+               comment = c(ORCID = "YOUR-ORCID-ID")),
+       person( given = "Georg",
+               family = "Weisert",
+               role = c("aut", "cre"),
+               email = "Weisert@stud.uni-heidelberg.de",
+               comment = c(ORCID = "YOUR-ORCID-ID")),
+       person( given = "Ahmad",
+               family = "Allah",
+               role = c("aut", "cre"),
+               email = "Fadl@stud.uni-heidelberg.de",
+               comment = c(ORCID = "YOUR-ORCID-ID"))
+       )
+Description: This package implements a variety of clustering and algorithms as part of the R-Course during the summer term of 2020.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
