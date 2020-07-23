@@ -30,39 +30,6 @@ generate_training_data <- function (n) {
   replicate(n, generate_training_vector())
 }
 
-#' Calculate the squared Euclidean Norm of a Vector.
-#' @description \code{euclidean_norm} calculates the Euclidean norm of a vector.
-#'
-#' @param x a vector representing a vector
-#'
-#' @return double; Euclidean norm of \code{x}
-#' #' @export
-#'
-#' @examples
-#' x = c(1,2,3)
-#' euclidean_norm(x)
-#' # 3.741657
-euclidean_norm <- function (x) {
-  sqrt(sum(x^2))
-}
-
-#' Calculate the squared Euclidean Norm of a Vector.
-#'  @description \code{euclidean_norm_squared} calculates the squared Euclidean norm of a vector.
-#'
-#' @param x a vector representing a vector
-#'
-#' @return double; squared Euclidean norm of \code{x}
-#' @export
-#'
-#' @examples
-#' x = c(1,2,3)
-#' euclidean_norm_squared(x)
-#' # 14
-euclidean_norm_squared <- function (x) {
-  sum(x^2)
-}
-
-
 #' Calculate the Gaussian Core for Two Input Vectors
 #' @description \code{gaussian_core} calculates the gaussian core of two given vectors \code{x} and \code{y} of the same length using \code{gamma}.
 #'

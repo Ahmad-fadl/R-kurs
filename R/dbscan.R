@@ -1,6 +1,3 @@
-euclidean_distance <- function(x,y) {
-  euclidean_norm(x-y)
-}
 
 regionQuery <- function (data, P, eps, distanceFunction) {
   seq(ncol(data))[apply(data, 2, function(D){ distanceFunction(P, D) < eps; })]
