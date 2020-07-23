@@ -1,10 +1,10 @@
 
-#' Create a Single Training Vector
-#' @description This function creates a single training vector as specified in "Beispiel 10.23" in reference "Richter19"
+#' Generate a Single Training Vector
+#' @description This function generates a single training vector as specified in "Beispiel 10.23" in reference "Richter19"
 #' @return returns a single training vector
 #' @example create_training_vector()
 #' @references Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
-create_training_vector <- function () {
+generate_training_vector <- function () {
   R <- function(z) {
     Delta <- runif(1,-0.1, 0.1)
     if (z == 1L) {
@@ -22,12 +22,12 @@ create_training_vector <- function () {
   return(X_1)
 }
 
-#' Create Training Data.
-#' @description This function creates training data as specified in "Beispiel 10.23" in reference "Richter19". It is meant for testing purposes.
+#' Generate Training Data.
+#' @description This function generates training data as specified in "Beispiel 10.23" in reference "Richter19". It is meant for testing purposes.
 #' @param n integer; the number of vectors in the returned training data.
 #' @return returns a matrix with two rows and \code{n} columns; each column is a training vector.
-create_training_data <- function (n) {
-  replicate(n, create_training_vector())
+generate_training_data <- function (n) {
+  replicate(n, generate_training_vector())
 }
 
 #' Calculate the squared Euclidean Norm of a Vector.
@@ -140,7 +140,7 @@ spectral_clustering <- function (data, k=1, mercer_core=gaussian_core) {
 }
 
 test <- function() {
-  X <- create_training_data(400)
+  X <- generate_training_data(400)
   erg <- spectral_clustering(X, k=2)
   plot(erg[1,], erg[2,])
 }
