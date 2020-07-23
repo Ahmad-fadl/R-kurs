@@ -30,35 +30,35 @@ create_training_data <- function (n) {
   replicate(n, create_training_vector())
 }
 
-#' Calculate the squared Euclidian Norm of a Vector.
-#' @description \code{norm_2} calculates the euclidian norm of a vector.
+#' Calculate the squared Euclidean Norm of a Vector.
+#' @description \code{euclidean_norm} calculates the Euclidean norm of a vector.
 #'
 #' @param x a vector representing a vector
 #'
-#' @return double; euclidian norm of \code{x}
+#' @return double; Euclidean norm of \code{x}
 #' #' @export
 #'
 #' @examples
 #' x = c(1,2,3)
-#' norm_2(x)
+#' euclidean_norm(x)
 #' # 3.741657
-norm_2 <- function (x) {
+euclidean_norm <- function (x) {
   sqrt(sum(x^2))
 }
 
-#' Calculate the squared Euclidian Norm of a Vector.
-#'  @description \code{norm_2_sq} calculates the squared euclidian norm of a vector.
+#' Calculate the squared Euclidean Norm of a Vector.
+#'  @description \code{euclidean_norm_squared} calculates the squared Euclidean norm of a vector.
 #'
 #' @param x a vector representing a vector
 #'
-#' @return double; squared euclidian norm of \code{x}
+#' @return double; squared Euclidean norm of \code{x}
 #' @export
 #'
 #' @examples
 #' x = c(1,2,3)
-#' norm_2_sq(x)
+#' euclidean_norm_squared(x)
 #' # 14
-norm_2_sq <- function (x) {
+euclidean_norm_squared <- function (x) {
   sum(x^2)
 }
 
@@ -78,7 +78,7 @@ gaussian_core <- function(x, y, gamma = 7.5) {
   stopifnot("gamma has to be a positive number" = gamma > 0)
   stopifnot("x and y have to be of equal length" = length(x) == length(y))
 
-  exp(-gamma * norm_2_sq(x - y))
+  exp(-gamma * euclidean_norm_squared(x - y))
 }
 
 # expecting input vectors to be the columns of a matrix
