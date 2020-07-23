@@ -1,13 +1,10 @@
-euclidean_distance <- function(x,y) {
-  euclidean_norm(x-y)
-}
-
-regionQuery <- function (data, P, eps, distanceFunction) {
-  seq(ncol(data))[apply(data, 2, function(D){ distanceFunction(P, D) < eps; })]
-}
 
 DBSCAN <- function (data, eps, MinPts, distanceFunction=euclidean_distance) {
   stopifnot("data cannot be empty!" = length(data) > 0);
+
+  regionQuery <- function (P) {
+    seq(ncol(data))[apply(data, 2, function(D){ distanceFunction(P, D) < eps; })];
+  }
 
   n <- ncol(data);
 
@@ -21,7 +18,7 @@ DBSCAN <- function (data, eps, MinPts, distanceFunction=euclidean_distance) {
     if (attr(data, "visited")[P_idx] == TRUE) next;
 
     attr(data, "visited")[P_idx] <- TRUE;
-    N <- regionQuery(data, data[, P_idx], eps, distanceFunction);
+    N <- regionQuery(data[, P_idx]);
     if (length(N) < MinPts) {
       attr(data, "isNoise")[P_idx] <- TRUE;
     } else {
@@ -31,7 +28,7 @@ DBSCAN <- function (data, eps, MinPts, distanceFunction=euclidean_distance) {
       for (Q_idx in N) {
         if (attr(data, "visited")[Q_idx] == FALSE) {
           attr(data, "visited")[Q_idx] <- TRUE;
-          N_prime <- regionQuery(data, data[, Q_idx], eps, distanceFunction);
+          N_prime <- regionQuery(data[, Q_idx]);
           if (length(N_prime) >= MinPts) {
             N <- c(N, N_prime);
           }
