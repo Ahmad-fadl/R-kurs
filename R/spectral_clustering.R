@@ -1,53 +1,4 @@
 
-#' Generate a Single Training Vector
-#' @description This function generates a single training vector as specified in "Beispiel 10.23" in reference "Richter19"
-#' @return returns a single training vector
-#' @example create_training_vector()
-#' @references Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
-generate_training_vector <- function () {
-  R <- function(z) {
-    Delta <- runif(1,-0.1, 0.1)
-    if (z == 1L) {
-      return(Delta + .3)
-    } else {
-      stopifnot("z should be either 1 or 2" = z == 2L)
-      return(Delta + 1)
-    }
-  }
-
-  Z <- sample.int(2, size = 1)
-  U <- runif(1, 0, 2 * pi)
-  X_1 <- R(Z) * c(cos(U), sin(U))
-
-  return(X_1)
-}
-
-#' Generate Training Data.
-#' @description This function generates training data as specified in "Beispiel 10.23" in reference "Richter19". It is meant for testing purposes.
-#' @param n integer; the number of vectors in the returned training data.
-#' @return returns a matrix with two rows and \code{n} columns; each column is a training vector.
-generate_training_data <- function (n) {
-  replicate(n, generate_training_vector())
-}
-
-#' Calculate the Gaussian Core for Two Input Vectors
-#' @description \code{gaussian_core} calculates the gaussian core of two given vectors \code{x} and \code{y} of the same length using \code{gamma}.
-#'
-#' @param x vector
-#' @param y vector
-#' @param gamma double; has to be a positive number; defaults to \code{7.5}
-#'
-#' @return returns the gaussian code of \code{x} and \code{y} using \code{gamma}
-#' @export
-#'
-#' @examples
-gaussian_core <- function(x, y, gamma = 7.5) {
-  stopifnot("gamma has to be a positive number" = gamma > 0)
-  stopifnot("x and y have to be of equal length" = length(x) == length(y))
-
-  exp(-gamma * euclidean_norm_squared(x - y))
-}
-
 # expecting input vectors to be the columns of a matrix
 #' Spectral Clustering over a Matrix's Column-Vectors.
 #'
@@ -104,10 +55,4 @@ spectral_clustering <- function (data, k=1, mercer_core=gaussian_core) {
   }
 
   return(alpha);
-}
-
-test <- function() {
-  X <- generate_training_data(400)
-  erg <- spectral_clustering(X, k=2)
-  plot(erg[1,], erg[2,])
 }
