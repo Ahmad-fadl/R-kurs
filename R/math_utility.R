@@ -62,7 +62,7 @@ euclidean_distance <- function(x,y) {
 #' @return returns the gaussian code of \code{x} and \code{y} using \code{gamma}
 #' @export
 #'
-#' @examples
+# #' @examples
 gaussian_core <- function(x, y, gamma = 7.5) {
   stopifnot("gamma has to be a positive number" = gamma > 0)
   stopifnot("x and y have to be of equal length" = length(x) == length(y))
