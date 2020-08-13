@@ -6,7 +6,7 @@
 #' @references Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
 generate_training_vector <- function () {
   R <- function(z) {
-    Delta <- runif(1,-0.1, 0.1)
+    Delta <- stats::runif(1,-0.1, 0.1)
     if (z == 1L) {
       return(Delta + .3)
     } else {
@@ -16,7 +16,7 @@ generate_training_vector <- function () {
   }
 
   Z <- sample.int(2, size = 1)
-  U <- runif(1, 0, 2 * pi)
+  U <- stats::runif(1, 0, 2 * pi)
   X_1 <- R(Z) * c(cos(U), sin(U))
 
   return(X_1)
