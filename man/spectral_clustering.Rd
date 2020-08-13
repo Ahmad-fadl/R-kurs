@@ -4,14 +4,18 @@
 \alias{spectral_clustering}
 \title{Spectral Clustering over a Matrix's Column-Vectors.}
 \usage{
-spectral_clustering(data, k = 1, mercer_core = gaussian_core)
+spectral_clustering(
+  data,
+  k = 1,
+  mercer_kernel = gaussian_kernel_with_fixed_gamma(7.5)
+)
 }
 \arguments{
-\item{data}{matrix whose columns are training vectors}
+\item{data}{matrix; columns are training vectors}
 
 \item{k}{integer; projection target dimension; defaults to \code{1}}
 
-\item{mercer_core}{function; a function object to a mercer_core (see "Definition 4.32" in Richter19); defaults to the gaussian core (see p.116, Richter19)}
+\item{mercer_kernel}{function; a function object to a mercer_kernel (see "Definition 4.32" in Richter19); defaults to the gaussian kernel (see p.116, Richter19)}
 }
 \value{
 a matrix containing the optimal \code{k}-dimensional projections of the input vectors as its columns
@@ -20,8 +24,8 @@ a matrix containing the optimal \code{k}-dimensional projections of the input ve
 Performs the spectral clustering algorithm describe in "Definition 10.50" in reference Richter19
 }
 \examples{
-X <- create_training_data(400)
-optimal_projections <- spectral_clustering(X)
+# X <- generate_training_data(400)
+# optimal_projections <- spectral_clustering(X)
 }
 \references{
 Richter19 -- Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
