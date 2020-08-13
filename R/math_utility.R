@@ -52,20 +52,41 @@ euclidean_distance <- function(x,y) {
 }
 
 
-#' Calculate the Gaussian Core for Two Input Vectors
-#' @description \code{gaussian_core} calculates the gaussian core of two given vectors \code{x} and \code{y} of the same length using \code{gamma}.
+#' Calculate the Gaussian kernel for Two Input Vectors
+#' @description \code{gaussian_core} calculates the gaussian kernel of two given vectors \code{x} and \code{y} of the same length using \code{gamma}.
 #'
 #' @param x vector
 #' @param y vector
 #' @param gamma double; has to be a positive number; defaults to \code{7.5}
 #'
-#' @return returns the gaussian code of \code{x} and \code{y} using \code{gamma}
+#' @return returns the gaussian kernel of \code{x} and \code{y} using \code{gamma}
 #' @export
 #'
 # #' @examples
-gaussian_core <- function(x, y, gamma = 7.5) {
+gaussian_kernel <- function(x, y, gamma = 7.5) {
   stopifnot("gamma has to be a positive number" = gamma > 0)
   stopifnot("x and y have to be of equal length" = length(x) == length(y))
 
   exp(-gamma * euclidean_norm_squared(x - y))
+}
+
+
+#' Gaussian Kernel factory
+#' @description Returns a function that calculates the Gaussian Kernel with \code{gamma} fixed to the passed value.
+#'
+#' @param gamma The \code{gamma} value to be used for the Gaussien Kernel.
+#'
+#' @return A function that calculates the Gaussian Kernel for input vector \code{x}, \code{y} with a fixed \code{gamma}.
+#' @export
+#'
+#' @examples
+#' f <- gaussian_kernel_with_fixed_gamma(3)
+gaussian_kernel_with_fixed_gamma <- function(gamma) {
+  stopifnot("gamma has to be a positive number" = gamma > 0)
+
+  bound_kernel <- function (x, y) {
+    return(gaussian_kernel(x, y, gamma));
+  }
+
+  return(bound_kernel);
 }
