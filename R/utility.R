@@ -2,8 +2,8 @@
 #' Generate a Single Training Vector
 #' @description This function generates a single training vector as specified in "Beispiel 10.23" in reference "Richter19"
 #' @return returns a single training vector
-#' @example generate_training_vector()
 #' @references Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
+# #' @example generate_training_vector()
 generate_training_vector <- function () {
   R <- function(z) {
     Delta <- stats::runif(1,-0.1, 0.1)
@@ -26,7 +26,7 @@ generate_training_vector <- function () {
 #' @description This function generates training data as specified in "Beispiel 10.23" in reference "Richter19". It is meant for testing purposes.
 #' @param n integer; the number of vectors in the returned training data.
 #' @return returns a matrix with two rows and \code{n} columns; each column is a training vector.
-#' @example generate_training_data(10)
+# #' @example generate_training_data(10)
 generate_training_data <- function (n) {
   replicate(n, generate_training_vector())
 }
