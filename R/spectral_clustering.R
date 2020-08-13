@@ -1,30 +1,28 @@
 
-# expecting input vectors to be the columns of a matrix
 #' Spectral Clustering over a Matrix's Column-Vectors.
 #'
 #' @description Performs the spectral clustering algorithm describe in "Definition 10.50" in reference Richter19
 #' @references Richter19 -- Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
 #'
-#' @param data matrix whose columns are training vectors
+#' @param data matrix; columns are training vectors
 #' @param k integer; projection target dimension; defaults to \code{1}
-#' @param mercer_core function; a function object to a mercer_core (see "Definition 4.32" in Richter19); defaults to the gaussian core (see p.116, Richter19)
+#' @param mercer_kernel function; a function object to a mercer_kernel (see "Definition 4.32" in Richter19); defaults to the gaussian kernel (see p.116, Richter19)
 #'
 #' @return a matrix containing the optimal \code{k}-dimensional projections of the input vectors as its columns
-#' @export
-#'
 #' @examples
-#' X <- create_training_data(400)
-#' optimal_projections <- spectral_clustering(X)
-spectral_clustering <- function (data, k=1, mercer_core=gaussian_core) {
+#'# X <- generate_training_data(400)
+#'# optimal_projections <- spectral_clustering(X)
+#' @export
+spectral_clustering <- function (data, k=1, mercer_kernel=gaussian_kernel_with_fixed_gamma(7.5)) {
   n <- ncol(data);
   W_tilde <- matrix(0, ncol=n, nrow=n);
 
-  # mercer_core is a symmetric function
+  # mercer_core is a symmetric function (any core for that matter)
   # => W_tilde is symmetric
   # TODO: optimize this
   for (i in seq(n)) {
     for (j in seq(n)) {
-      W_tilde[i,j] <- mercer_core(data[,i], data[, j]);
+      W_tilde[i,j] <- mercer_kernel(data[,i], data[, j]);
     }
   }
 
