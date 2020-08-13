@@ -1,4 +1,18 @@
 
+#' Density-Based Spatial Clustering of Applications with Noise
+#' @description
+#'
+#' @param data matrix; matrix columns are (mathematical) vectors. Input data.
+#' @param eps double; neighborhood radius
+#' @param MinPts integer; minimum number of points in neighborhood required
+#' @param distanceFunction function; function calculating the distance between two vectors of length \code{nrow(data)}
+#'
+#' @return matrix; input data with attribute "cluster" assigning a cluster to every column-vector.
+#' @export
+#'
+#' @examples
+#' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
+#' DBSCAN(data, .2, 1)
 DBSCAN <- function (data, eps, MinPts, distanceFunction=euclidean_distance) {
   stopifnot("data cannot be empty!" = length(data) > 0);
 
