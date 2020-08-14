@@ -57,7 +57,7 @@ generate_2d_cluster <- function (n, center=c(0,0)) {
   replicate(n, generate_vector(center[1], center[2]));
 }
 
-plot_clustered_2d_data <- function(data) {
+plot_clustered_2d_data <- function(data, point_size=.5) {
   stopifnot("The passed data needs to have the \"cluster\" set" =  "cluster" %in% names(attributes(data)));
   stopifnot("Tha passed data is not two dimensional" = nrow(data) >= 2);
   if (nrow(data) > 2) {
@@ -71,12 +71,12 @@ plot_clustered_2d_data <- function(data) {
 
   col_gen <- get_color_generator();
 
-  plot(data[1,], data[2,], xlab="x", ylab="y", pch=1)
+  plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size)
 
 
 
   noiseIdx <- attr(data, "cluster") < 0;
-  points(data[1, noiseIdx], data[2, noiseIdx], col="black", pch=20);
+  points(data[1, noiseIdx], data[2, noiseIdx], col="black", pch=20, cex=point_size);
 
   legendlabels <- c("Noise")
   legendcolors <- c("black")
@@ -88,7 +88,7 @@ plot_clustered_2d_data <- function(data) {
 
     cur_col <- col_gen();
 
-    points(clusterX, clusterY, col=cur_col, pch=20);
+    points(clusterX, clusterY, col=cur_col, pch=20, cex=point_size);
 
     legendlabels <- c(legendlabels, paste("Cluster", i));
     legendcolors <- c(legendcolors, cur_col);
