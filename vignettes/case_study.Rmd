@@ -1,0 +1,57 @@
+---
+title: "13 - Clustering"
+#output: rmarkdown::html_vignette
+output:
+  pdf_document:
+    fig_crop: yes
+vignette: >
+  %\VignetteIndexEntry{case_study}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.height = 2,
+  #fig.asp=1,
+  fig.align = "center",
+  out.extra='keepaspectratio',
+  out.width ="\\textwidth"
+)
+```
+
+```{r setup}
+library(clustering)
+```
+
+```{r plot_helper, include=FALSE, cache=TRUE}
+plot2d <- function (data, title="Untitled", xlabel=NULL, ylabel=NULL ) {
+  plot(data[1,], data[2,], cex.axis=.75, pch=1, cex=.5, col=rgb(0,0,0,.5), main=title)
+  if (!missing(xlabel)) mtext(side=1, line=2, xlabel);
+  if (!missing(ylabel)) mtext(side=2, line=2, ylabel);
+}
+```
+
+# Spectral Clustering
+
+intro text here
+
+## Perfect Projections
+
+
+
+```{r, cache=TRUE, echo=FALSE, fig.asp=.6}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+set.seed(1)
+
+X <- clustering::generate_nested_2d_training_data(400)
+plot2d(X, title="Input Data",xlabel="", ylabel="")
+
+X_projections <- spectral_clustering(X, 2, gaussian_kernel_with_fixed_gamma(30));
+plot2d(X_projections, title="Projections for gamma = 30",xlabel="", ylabel="")
+```
+
+## Retrieve Clusters
