@@ -90,3 +90,74 @@ gaussian_kernel_with_fixed_gamma <- function(gamma) {
 
   return(bound_kernel);
 }
+
+#' Calculate the Infinity-Norm of a Vector.
+#' @description \code{infinity_norm} calculates the infinity-norm of a vector. Also known as maximum norm.
+#'
+#' @param x a vector representing a (mathematical) vector
+#'
+#' @return double; infinity-norm of \code{x}
+#' @export
+#'
+#' @examples
+#' x = c(1,2,3)
+#' infinity_norm(x)
+#' # 3
+infinity_norm <- function(x) {
+  return(max(sapply(x, abs)));
+}
+maximum_norm <- infinity_norm
+
+#' Calculate the 1-Norm of a Vector.
+#' @description \code{one_norm} calculates the Euclidean norm of a vector. Also known as Taxicab norm or Manhattan norm.
+#'
+#' @param x a vector representing a (mathematical) vector
+#'
+#' @return double; 1-norm of \code{x}
+#' @export
+#'
+#' @examples
+#' x = c(1,2,3)
+#' one_norm(x)
+#' # 6
+one_norm <- function(x) {
+  return(sum(sapply(x, abs)));
+}
+taxicab_norm <- one_norm
+manhattan_norm <- one_norm
+
+#' Calculate the p-Norm of a Vector.
+#' @description \code{p_norm} calculates the p-norm of a vector for a given \code{p}.
+#'
+#' @param x a vector representing a (mathematical) vector
+#' @param p integer; the p value
+#'
+#' @return double; p-norm of \code{x}
+#' @export
+#'
+#' @examples
+#' x = c(1,2,3)
+#' p_norm(x, 2)
+#' # 3.741657
+p_norm <- function(x, p) {
+  return(sum( sapply(x,abs)**p )**(1/p));
+}
+
+
+#' p-Norm Function Factory
+#' @description Generate a function calculating the p-norm for the given p.
+#'
+#' @param p integer; specify which p-norm the returned function will compute.
+#'
+#' @return function; A function which computes the p-norm for the given \code{p}.
+#' @export
+#'
+#' @examples
+#' two_norm = p_norm_factory(2)
+#' two_norm(c(1,2,3))
+#' # 3.741657
+p_norm_factory <- function(p) {
+  function(x) {
+    p_norm(x, p);
+  }
+}
