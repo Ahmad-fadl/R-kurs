@@ -76,7 +76,7 @@ plot_clustered_2d_data <- function(data, point_size=.5) {
 
 
   noiseIdx <- attr(data, "cluster") < 0;
-  points(data[1, noiseIdx], data[2, noiseIdx], col="black", pch=20, cex=point_size);
+  graphics::points(data[1, noiseIdx], data[2, noiseIdx], col="black", pch=20, cex=point_size);
 
   legendlabels <- c("Noise")
   legendcolors <- c("black")
@@ -88,13 +88,13 @@ plot_clustered_2d_data <- function(data, point_size=.5) {
 
     cur_col <- col_gen();
 
-    points(clusterX, clusterY, col=cur_col, pch=20, cex=point_size);
+    graphics::points(clusterX, clusterY, col=cur_col, pch=20, cex=point_size);
 
     legendlabels <- c(legendlabels, paste("Cluster", i));
     legendcolors <- c(legendcolors, cur_col);
   }
 
-  legend("topright", legend=legendlabels, fill = legendcolors, col=legendcolors, cex=1);
+  graphics::legend("topright", legend=legendlabels, fill = legendcolors, col=legendcolors, cex=1);
 }
 
 get_color_generator <- function () {
