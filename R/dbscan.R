@@ -1,5 +1,5 @@
 
-#' Density-Based Spatial Clustering of Applications with Noise
+#' Density-Based Spatial Clustering of Applications with Noise (DBSCAN)
 #' @description Finds clusters in the input data using the DBSCAN algorithm.
 #'
 #' @param data matrix; matrix columns are (mathematical) vectors. Input data.

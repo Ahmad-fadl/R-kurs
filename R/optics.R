@@ -1,5 +1,18 @@
 
-
+#' Ordering points to identify the clustering structure (OPTICS)
+#' @description Finds clusters in the input data using the OPTICS algorithm.
+#'
+#' @param data matrix; matrix columns are (mathematical) vectors. Input data.
+#' @param eps double; neighborhood radius
+#' @param MinPts integer; minimum number of points in neighborhood required
+#' @param distanceFunction function; function calculating the distance between two vectors of length \code{nrow(data)}
+#'
+#' @return matrix; input data with attribute "cluster" assigning a cluster to every column-vector.
+#' @export
+#'
+#' @examples
+#' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
+#' DBSCAN(data, .2, 1)
 OPTICS <- function (data, eps, minPts, distanceFunction = euclidean_distance) {
   stopifnot( "data has to be a matrix. columns are vectors." = is.matrix(data));
   stopifnot( "eps has to be a positive number" = eps > 0);
@@ -91,3 +104,4 @@ reachability_plot <- function (data) {
 
   plot(x,y, type="h");
 }
+
