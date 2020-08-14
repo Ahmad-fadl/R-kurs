@@ -14,12 +14,15 @@
 #'# optimal_projections <- spectral_clustering(X)
 #' @export
 spectral_clustering <- function (data, k=1, mercer_kernel=gaussian_kernel_with_fixed_gamma(7.5)) {
-  n <- ncol(data);
-  W_tilde <- matrix(0, ncol=n, nrow=n);
+  stopifnot("The input data has to be a matrix." = is.matrix(data));
+  k <- as.integer(k);
+  stopifnot("The target dimension k has to be a positive integer." = k > 0);
 
+  n <- ncol(data);
+
+  W_tilde <- matrix(0, ncol=n, nrow=n);
   # mercer_core is a symmetric function (any core for that matter)
   # => W_tilde is symmetric
-  # TODO: optimize this
   for (i in seq(n)) {
     for (j in seq(n)) {
       W_tilde[i,j] <- mercer_kernel(data[,i], data[, j]);
