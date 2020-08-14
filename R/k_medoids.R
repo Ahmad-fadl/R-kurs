@@ -73,6 +73,7 @@ set_closest <- function(data, medoids){
 #' k_medoids(data, 2)
 k_medoids <- function(data, k=2){
   stopifnot("data cannot be empty!" = length(data) > 0);
+  stopifnot("data must be a matrix!" = is.matrix(data) == TRUE);
   medoids <- round(runif(k, 1, ncol(data)))
   start <- medoids
   cluster <- set_closest(data, medoids)
