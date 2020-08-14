@@ -102,5 +102,4 @@ k_medoids <- function(data, k=2){
   }
   attributes(cluster)[3]<-NULL
   cluster
-  c(start, best_cost, medoids)
 }
