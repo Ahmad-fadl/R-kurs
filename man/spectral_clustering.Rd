@@ -7,7 +7,9 @@
 spectral_clustering(
   data,
   k = 1,
-  mercer_kernel = gaussian_kernel_with_fixed_gamma(7.5)
+  mercer_kernel = gaussian_kernel_with_fixed_gamma(15),
+  clustering = NULL,
+  ...
 )
 }
 \arguments{
