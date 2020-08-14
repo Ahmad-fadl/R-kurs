@@ -161,3 +161,24 @@ p_norm_factory <- function(p) {
     p_norm(x, p);
   }
 }
+
+#' Induced Metric Factory
+#' @description This function returns a function calculating the metric induced by the given vector norm.
+#'
+#' @param vector_norm function; a vector norm
+#'
+#' @return function; calculates the metric induced by \code{vector_norm}.
+#' @export
+#'
+#' @examples
+#' euclidean_metric <- induced_metric_factory(euclidean_norm)
+#' x = c(1,2,3)
+#' y = c(2,3,4)
+#' euclidean_metric(x, y)
+#' # 1.732051
+induced_metric_factory <- function(vector_norm) {
+  stopifnot("vector_norm has to be a function." = is.function(vector_norm))
+  function (x, y) {
+    return(vector_norm(x-y));
+  }
+}
