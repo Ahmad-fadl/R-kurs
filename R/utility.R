@@ -1,34 +1,44 @@
 
-#' Generate a Single Training Vector
-#' @description This function generates a single training vector as specified in "Beispiel 10.23" in reference "Richter19"
-#' @return returns a single training vector
-#' @references Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
-# #' @example generate_training_vector()
-generate_training_vector <- function () {
-  R <- function(z) {
-    Delta <- stats::runif(1,-0.1, 0.1)
-    if (z == 1L) {
-      return(Delta + .3)
-    } else {
-      stopifnot("z should be either 1 or 2" = z == 2L)
-      return(Delta + 1)
-    }
-  }
 
-  Z <- sample.int(2, size = 1)
-  U <- stats::runif(1, 0, 2 * pi)
-  X_1 <- R(Z) * c(cos(U), sin(U))
-
-  return(X_1)
-}
-
-#' Generate Training Data.
-#' @description This function generates training data as specified in "Beispiel 10.23" in reference "Richter19". It is meant for testing purposes.
+#' Generate Nested 2D Training Data.
+#' @description This function generates 2D training data as specified in "Beispiel 10.23" in reference "Richter19". The result will be an inner clusters surrounded by a ring of points, the outer cluster. This data is especially useful to test spectral clustering.
 #' @param n integer; the number of vectors in the returned training data.
 #' @return returns a matrix with two rows and \code{n} columns; each column is a training vector.
-# #' @example generate_training_data(10)
-generate_training_data <- function (n) {
-  replicate(n, generate_training_vector());
+#' @export
+#'
+#' @examples
+#' generate_training_data(10)
+generate_nested_2d_training_data <- function (n) {
+  innerOrOuter <- c()
+  #' Generate a Single Training Vector
+  #' @description This function generates a single training vector as specified in "Beispiel 10.23" in reference "Richter19"
+  #' @return returns a single training vector
+  #' @references Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
+  # #' @example generate_training_vector()
+  generate_training_vector <- function () {
+    R <- function(z) {
+      Delta <- stats::runif(1,-0.1, 0.1)
+      if (z == 1L) {
+        innerOrOuter <<- c(innerOrOuter, 1);
+        return(Delta + .3)
+      } else {
+        stopifnot("z should be either 1 or 2" = z == 2L)
+        innerOrOuter <<- c(innerOrOuter, 2);
+        return(Delta + 1)
+      }
+    }
+
+    Z <- sample.int(2, size = 1)
+    U <- stats::runif(1, 0, 2 * pi)
+    X_1 <- R(Z) * c(cos(U), sin(U))
+
+    return(X_1)
+  }
+
+  data <- replicate(n, generate_training_vector());
+  attr(data, "innerOrOuter") <- innerOrOuter;
+
+  return(data);
 }
 
 #' Generate a Cluster of Two Dimensional Vectors
@@ -57,7 +67,7 @@ generate_2d_cluster <- function (n, center=c(0,0)) {
   replicate(n, generate_vector(center[1], center[2]));
 }
 
-plot_clustered_2d_data <- function(data, point_size=.5) {
+plot_clustered_2d_data <- function(data, point_size=.5, show_noise=TRUE) { # ignore noise
   stopifnot("The passed data needs to have the \"cluster\" set" =  "cluster" %in% names(attributes(data)));
   stopifnot("Tha passed data is not two dimensional" = nrow(data) >= 2);
   if (nrow(data) > 2) {
@@ -71,15 +81,18 @@ plot_clustered_2d_data <- function(data, point_size=.5) {
 
   col_gen <- get_color_generator();
 
-  plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size)
+  plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75, cex.names=.75)
 
+  legendlabels <- c()
+  legendcolors <- c()
 
+  if (showNoise) {
+    noiseIdx <- attr(data, "cluster") < 0;
+    graphics::points(data[1, noiseIdx], data[2, noiseIdx], col="black", pch=20, cex=point_size);
 
-  noiseIdx <- attr(data, "cluster") < 0;
-  graphics::points(data[1, noiseIdx], data[2, noiseIdx], col="black", pch=20, cex=point_size);
-
-  legendlabels <- c("Noise")
-  legendcolors <- c("black")
+    legendlabels <- c("Noise")
+    legendcolors <- c("black")
+  }
 
   for (i in clusters) {
     clusterIdx <- attr(data, "cluster") == i;
