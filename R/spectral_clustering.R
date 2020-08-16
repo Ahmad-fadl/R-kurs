@@ -13,7 +13,7 @@
 #'# X <- generate_training_data(400)
 #'# optimal_projections <- spectral_clustering(X)
 #' @export
-spectral_clustering <- function (data, k=1, mercer_kernel=gaussian_kernel_with_fixed_gamma(7.5)) {
+spectral_clustering <- function (data, k=1, mercer_kernel=gaussian_kernel_with_fixed_gamma(15), clustering=NULL, ...) {
   stopifnot("The input data has to be a matrix." = is.matrix(data));
   k <- as.integer(k);
   stopifnot("The target dimension k has to be a positive integer." = k > 0);
@@ -53,6 +53,10 @@ spectral_clustering <- function (data, k=1, mercer_kernel=gaussian_kernel_with_f
   alpha <- matrix(0, ncol=n, nrow=k);
   for (i in seq(k)) {
     alpha[i,] = beta[, i+1];
+  }
+
+  if(!missing(clustering)) {
+    alpha <- clustering(alpha, ...);
   }
 
   return(alpha);
