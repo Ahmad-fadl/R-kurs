@@ -37,6 +37,8 @@ source("R\\math_utility.r")
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 #' kmean(data, 3)
 kmean <- function(mydata,k=3,distanceFunction=euclidean_norm_squared) {
+  stopifnot( "data has to be a matrix. columns are vectors." = is.matrix(mydata));
+  stopifnot("data cannot be empty!" = length(mydata) > 0)
   zent = m(mydata,k)
   mydata= `attr<-`(mydata,"clusters",rep(1,ncol(mydata)))
   iter = 0
@@ -80,9 +82,4 @@ kmean <- function(mydata,k=3,distanceFunction=euclidean_norm_squared) {
   mydata = `attr<-`(mydata,"centers",round(zent))
   return(mydata)
 }
-#test
-a = rep(1:10000,4)
-a=sample(a,500)
-a= matrix(a,nrow=4)
-kmean(a,k=3)
 
