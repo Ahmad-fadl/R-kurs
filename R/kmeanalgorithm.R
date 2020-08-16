@@ -44,7 +44,7 @@ kmean <- function(mydata,k=3,distanceFunction=euclidean_norm_squared) {
     for (i in seq_along(mydata[1,])) {
       for (j in 2:k) {
         #print(as.integer(attr(mydata[[i]],'cluster')))
-        if(distancefuktion(mydata[,i]-zent[,attr(mydata,"clusters")[i]]) > distancefuktion(mydata[,i]-zent[,j]))
+        if(distanceFunction(mydata[,i]-zent[,attr(mydata,"clusters")[i]]) > distanceFunction(mydata[,i]-zent[,j]))
           {attr(mydata,"clusters")[i]=j}
       }
     }
