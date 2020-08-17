@@ -83,9 +83,9 @@ The k-medoids algorithm is a clustering approach related to k-means clustering. 
 ## Example
 
 ```{r, cache=TRUE, echo=FALSE, fig.asp=.6}
-
+par(mfrow=c(1,2), mar=c(3,3,2,1))
 X <- matrix(c(8,7,3,7,4,9,9,6,8,5,5,8,7,3,8,4,7,5,4,5), nrow = 2)
 plot2d(X, title="Input Data",xlabel="", ylabel="")
 
-#clustering::plot_clustered_2d_data(k_medoids(X, 2), show_noise = FALSE)
+plot2d(k_medoids(X, 2), title="Output Data",xlabel="", ylabel="")
 ```
