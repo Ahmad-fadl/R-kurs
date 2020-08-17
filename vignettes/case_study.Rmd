@@ -27,22 +27,30 @@ library(clustering)
 ```
 
 ```{r plot_helper, include=FALSE, cache=TRUE}
-plot2d <- function (data, title="Untitled", xlabel=NULL, ylabel=NULL ) {
-  plot(data[1,], data[2,], cex.axis=.75, pch=1, cex=.5, col=rgb(0,0,0,.5), main=title)
+plot2d <- function (data, title="Untitled", xlabel=NULL, ylabel=NULL) {
+  plot(data[1,], data[2,], cex.axis=.75, pch=1, cex=.5, col=rgb(0, 0, 0, .5), main=title, xlab="", ylab="");
   if (!missing(xlabel)) mtext(side=1, line=2, xlabel);
   if (!missing(ylabel)) mtext(side=2, line=2, ylabel);
+  if ("innerOrOuter" %in% names(attributes(data))) {
+    inner_indices <- attr(data, "innerOrOuter") == 1;
+    points(data[1, inner_indices], data[2, inner_indices], pch=20, cex=.5, col=rgb(1, 0, 0, .25));
+    points(data[1, !inner_indices], data[2, !inner_indices], pch=20, cex=.5, col=rgb(0, 0, 1, .25));
+  }
 }
 ```
 
 # Spectral Clustering
 
-intro text here
+This section introduces the spectral clustering algorithm.
 
 ## Perfect Projections
 
+The spectral clustering method is based upon perfect projections of input data. These projections might be in a lower dimension than the input data.
+The left figure shows input data that is randomly clustered in an inner and an outer circle. The colors are only for visualization purposes and are not known to or used by the algorithm.
+The right figure shows the perfect projections calculated by the spectral clustering algorithm when using the Gaussian kernel with a gamma value of 30.
 
 
-```{r, cache=TRUE, echo=FALSE, fig.asp=.6}
+```{r, cache=TRUE, echo=FALSE, fig.asp=.55}
 par(mfrow=c(1,2), mar=c(3,3,2,1))
 
 set.seed(1)
@@ -51,13 +59,21 @@ X <- clustering::generate_nested_2d_training_data(400)
 plot2d(X, title="Input Data",xlabel="", ylabel="")
 
 X_projections <- spectral_clustering(X, 2, gaussian_kernel_with_fixed_gamma(30));
+attr(X_projections, "innerOrOuter") <- attr(X, "innerOrOuter");
 plot2d(X_projections, title="Projections for gamma = 30",xlabel="", ylabel="")
 ```
 
-## Retrieve Clusters
+## Retrieving Clusters
+
+The perfect projections alone do not provide a direct clustering themselves, but using one of the other clustering algorithms the spectral clusters can be easily extracted.
+
+sample figure here :)
 
 
+# Proximity-based Clustering Algorithms
+## DBSCAN
 
+## OPTICS
 
 
 # K-Medoids Algorithm
