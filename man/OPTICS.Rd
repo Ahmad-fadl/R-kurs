@@ -4,7 +4,13 @@
 \alias{OPTICS}
 \title{Ordering points to identify the clustering structure (OPTICS)}
 \usage{
-OPTICS(data, eps, minPts, distanceFunction = euclidean_distance)
+OPTICS(
+  data,
+  eps,
+  minPts,
+  distanceFunction = euclidean_distance,
+  threshold = NULL
+)
 }
 \arguments{
 \item{data}{matrix; matrix columns are (mathematical) vectors. Input data.}

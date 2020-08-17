@@ -4,16 +4,16 @@
 \alias{DBSCAN}
 \title{Density-Based Spatial Clustering of Applications with Noise (DBSCAN)}
 \usage{
-DBSCAN(data, eps, MinPts, distanceFunction = euclidean_distance)
+DBSCAN(data, eps, minPts, distanceFunction = euclidean_distance)
 }
 \arguments{
 \item{data}{matrix; matrix columns are (mathematical) vectors. Input data.}
 
 \item{eps}{double; neighborhood radius}
 
-\item{MinPts}{integer; minimum number of points in neighborhood required}
-
 \item{distanceFunction}{function; function calculating the distance between two vectors of length \code{nrow(data)}}
+
+\item{MinPts}{integer; minimum number of points in neighborhood required}
 }
 \value{
 matrix; input data with attribute "cluster" assigning a cluster to every column-vector.
