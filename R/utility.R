@@ -67,6 +67,20 @@ generate_2d_cluster <- function (n, center=c(0,0)) {
   replicate(n, generate_vector(center[1], center[2]));
 }
 
+#' Plot Clustered 2D Data
+#'
+#' @param data matrix; columns are vectors. Has to have the \code{"cluster"} attribute set.
+#' @param point_size numeric; size of the points
+#' @param show_noise logical; toggle plotting of noise
+#' @param show_legend logical; toggle legend display
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' data <- matrix(c(1,1,2,1));
+#' attr(data, "cluster") <- c(1,2);
+#' plot_clustered_2d_data(data);
 plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_legend=FALSE) {
   stopifnot("The passed data needs to have the \"cluster\" set" =  "cluster" %in% names(attributes(data)));
   stopifnot("Tha passed data is not two dimensional" = nrow(data) >= 2);
