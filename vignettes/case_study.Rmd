@@ -73,6 +73,34 @@ sample figure here :)
 # Proximity-based Clustering Algorithms
 ## DBSCAN
 
+The DBSCAN algorithm searches for objects which contain a certain amount of objects in a given radius. The radius, called the neighborhood, and the expected number of neighboring objects are specified as arguments.
+The left figure demonstrates a neighborhood around a point for a given epsilon (the neighborhood radius) which would satisfy a minimum-points-criterion of four points, since the point itself is counted as well.
+The figure to the right shows data that has been clustered using the DBSCAN algorithm.
+
+```{r, echo=FALSE, fig.asp=.55, warning=FALSE}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+plot(0,0, pch=1, cex=15, xaxt='n', yaxt='n', main="Example of a Neighborhood")
+#points(0,0, pch=1, cex=30)
+segments(0, 0, .435, 0, lwd=2)
+text(.225, 0.075, "epsilon", cex=.75)
+points(0,0, pch=20, cex=1.5, col="blue")
+points(c(0.25, -0.2, -.25), c(0.2,.1, -.3), pch=20, cex=1.5, col="darkgreen")
+points(c(0.6888805, -0.7046547, -0.4857517, -0.6026919, 0.7602918), c(-0.7698194, -0.5060397, 0.6755757, -0.8241908, 0.4975237), pch=20, cex=1.5, col="darkred")
+
+set.seed(188)
+n <- 50
+x <- cbind(
+  x = runif(5, 0, 2) + rnorm(n, sd = 0.05),
+  y = runif(5, 0, 2) + rnorm(n, sd = 0.05)
+)
+x <- t(x)
+d <- c(x, .6, .75, .8, 1.3, 0, 1.6, .6, 1, .9, .9, .5, 1.5, 1, .4, .1, .6);
+x <- matrix(d, nrow=2);
+
+clustering::plot_clustered_2d_data(DBSCAN(x, .1, 7), hide_axis_text=TRUE);
+```
+
 ## OPTICS
 
 
