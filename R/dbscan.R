@@ -13,14 +13,16 @@
 #' @examples
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 #' DBSCAN(data, .2, 1)
-DBSCAN <- function (data, eps, MinPts, distanceFunction=euclidean_distance) {
+DBSCAN <- function (data, eps, minPts, distanceFunction=euclidean_distance) {
   stopifnot("data cannot be empty!" = length(data) > 0);
 
+  n <- ncol(data);
+
   regionQuery <- function (P) {
-    seq(ncol(data))[apply(data, 2, function(D){ distanceFunction(P, D) < eps; })];
+    distances <- apply(data, 2, function(D){ distanceFunction(P, D)});
+    seq(n)[apply(data, 2, function(D){ distanceFunction(P, D) < eps; })];
   }
 
-  n <- ncol(data);
 
   C <- 0;
   attr(data, "visited") <- rep(FALSE, n);
@@ -33,17 +35,18 @@ DBSCAN <- function (data, eps, MinPts, distanceFunction=euclidean_distance) {
 
     attr(data, "visited")[P_idx] <- TRUE;
     N <- regionQuery(data[, P_idx]);
-    if (length(N) < MinPts) {
+    if (length(N) < minPts) {
       attr(data, "isNoise")[P_idx] <- TRUE;
     } else {
       C <- C + 1;
       # expand cluster
       attr(data, "cluster")[P_idx] <- C;
-      for (Q_idx in N) {
+      while(length(N)) {
+        Q_idx <- N[1];
         if (attr(data, "visited")[Q_idx] == FALSE) {
           attr(data, "visited")[Q_idx] <- TRUE;
           N_prime <- regionQuery(data[, Q_idx]);
-          if (length(N_prime) >= MinPts) {
+          if (length(N_prime) >= minPts) {
             N <- c(N, N_prime);
           }
         }
@@ -51,6 +54,7 @@ DBSCAN <- function (data, eps, MinPts, distanceFunction=euclidean_distance) {
           attr(data, "cluster")[Q_idx] = C;
           attr(data, "isNoise")[Q_idx] = FALSE;
         }
+        N <- N[-1];
       }
     }
   }
@@ -59,4 +63,3 @@ DBSCAN <- function (data, eps, MinPts, distanceFunction=euclidean_distance) {
   attr(data, "isNoise") <- NULL;
   return(data);
 }
-
