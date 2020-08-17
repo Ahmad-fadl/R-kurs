@@ -67,7 +67,7 @@ generate_2d_cluster <- function (n, center=c(0,0)) {
   replicate(n, generate_vector(center[1], center[2]));
 }
 
-plot_clustered_2d_data <- function(data, point_size=.5, show_noise=TRUE) { # ignore noise
+plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_legend=FALSE) {
   stopifnot("The passed data needs to have the \"cluster\" set" =  "cluster" %in% names(attributes(data)));
   stopifnot("Tha passed data is not two dimensional" = nrow(data) >= 2);
   if (nrow(data) > 2) {
@@ -81,14 +81,14 @@ plot_clustered_2d_data <- function(data, point_size=.5, show_noise=TRUE) { # ign
 
   col_gen <- get_color_generator();
 
-  plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75, cex.names=.75)
+  plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75, cex.names=.75);
 
   legendlabels <- c()
   legendcolors <- c()
 
-  if (showNoise) {
+  if (show_noise) {
     noiseIdx <- attr(data, "cluster") < 0;
-    graphics::points(data[1, noiseIdx], data[2, noiseIdx], col="black", pch=20, cex=point_size);
+    graphics::points(data[1, noiseIdx], data[2, noiseIdx], col="black", pch=19, cex=point_size);
 
     legendlabels <- c("Noise")
     legendcolors <- c("black")
@@ -101,13 +101,15 @@ plot_clustered_2d_data <- function(data, point_size=.5, show_noise=TRUE) { # ign
 
     cur_col <- col_gen();
 
-    graphics::points(clusterX, clusterY, col=cur_col, pch=20, cex=point_size);
+    graphics::points(clusterX, clusterY, col=cur_col, pch=19, cex=point_size);
 
     legendlabels <- c(legendlabels, paste("Cluster", i));
     legendcolors <- c(legendcolors, cur_col);
   }
 
-  graphics::legend("topright", legend=legendlabels, fill = legendcolors, col=legendcolors, cex=1);
+  if (show_legend) {
+    graphics::legend("topright", legend=legendlabels, fill = legendcolors, col=legendcolors, cex=1);
+  }
 }
 
 get_color_generator <- function () {
