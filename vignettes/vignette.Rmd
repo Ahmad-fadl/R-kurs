@@ -130,7 +130,7 @@ reachability_plot(data, threshold=NULL)
 cluster_by_reachability(data, threshold)
 ```
 
-While the DBSCAN returns the data with clustering information added, the OPTICS algorithm does not produce a clustering by default. It returns the input data with distance information added in the `"core-distance"``"reachability-distance"` attributes. The `reachability_plot` function can be used to visualize the reachability information, while the `cluster_by_reachability` function can be used to extract clusters via a threshold. By passing a threshold to the `reachability_plot` function this can also be visualized.
+While the DBSCAN returns the data with clustering information added, the OPTICS algorithm does not produce a clustering by default. It returns the input data with distance information added in the `"core-distance"` and `"reachability-distance"` attributes. The `reachability_plot` function can be used to visualize the reachability information, while the `cluster_by_reachability` function can be used to extract clusters via a threshold. By passing a threshold to the `reachability_plot` function this can also be visualized.
 The following figure shows an example of such a reachability plot with a given threshold.
 
 ```{r, fig.width=6}
