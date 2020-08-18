@@ -158,3 +158,11 @@ The k-medoids algorithm is a clustering approach related to k-means clustering. 
 data <- matrix(c(8,7,3,7,4,9,9,6,8,5,5,8,7,3,8,4,7,5,4,5), nrow = 2)
 k_medoids(data, 2)
 ```
+# K-Means Algorithm
+
+The k-means algorithm is a clustering way tha used standards mathematics distances to groub data. It is used to partition a data set into k clusters using means. The k-means algorithm requires the user to specify the number of clusters k.
+
+```{r}
+data <- matrix(c(8,7,3,7,4,9,9,6,8,5,5,8,7,3,8,4,7,5,4,5), nrow = 2)
+kmean(data, 2)
+```

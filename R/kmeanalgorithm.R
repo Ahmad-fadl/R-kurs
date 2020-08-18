@@ -36,7 +36,7 @@ m <- function(mydata,k){
 #' @examples
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 #' kmean(data, 3)
-kmean <- function(mydata,k=3,distanceFunction=euclidean_distance) {
+kmean <- function(mydata,k=3,distanceFunction=euclidean_distance_squared) {
   stopifnot( "data has to be a matrix. columns are vectors." = is.matrix(mydata));
   stopifnot("data cannot be empty!" = length(mydata) > 0)
   zent = m(mydata,k)

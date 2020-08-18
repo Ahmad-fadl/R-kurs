@@ -149,3 +149,17 @@ suppressWarnings(clustering::plot_clustered_2d_data(k_medoids(X, 2), show_noise 
 
 suppressWarnings(clustering::plot_clustered_2d_data(k_medoids(X, 3), show_noise = FALSE, show_legend = TRUE))
 ```
+# K-means Algorithm
+
+The k-means algorithm is a clustering way tha used standards mathematics distances to groub data. It is used to partition a data set into k clusters using means. The k-means algorithm requires the user to specify the number of clusters k.
+
+## Example data with 2 or 3 clusters
+
+```{r, cache=TRUE, echo=FALSE, fig.asp=.6}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+X <- matrix(c(8,7,3,7,4,9,9,6,8,5,5,8,7,3,8,4,7,5,4,5), nrow = 2)
+
+suppressWarnings(clustering::plot_clustered_2d_data(kmean(X, 2), show_noise = FALSE, show_legend = TRUE))
+
+suppressWarnings(clustering::plot_clustered_2d_data(kmean(X, 3), show_noise = FALSE, show_legend = TRUE))
+```
