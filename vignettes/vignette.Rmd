@@ -49,13 +49,12 @@ print(X)
 # Math Functions
 
 ```{r, eval=FALSE}
-euclidean_norm_squared(vector)
 euclidean_norm(vector)
-euclidean_distance(vector1, vector2)
-gaussian_kernel(vector1, vector2, gamma = 7.5)
 infinity_norm(vector), maximum_norm(vector) # different names for the same norm
 one_norm(vector), taxicab_norm(vector), manhattan_norm(vector) # different names for the same norm
 p_norm(vector, p)
+euclidean_distance(vector1, vector2)
+gaussian_kernel(vector1, vector2, gamma = 7.5)
 ```
 
 The package offers a multitude of predefined math functions, many of them norms, and also function factories for easy generation of additional math functions, e.g. using the `induced_metric_factory` function factory the induced metric of any norm may be produced.
@@ -114,6 +113,7 @@ plot(data[1,], data[2,], col=c("darkred", "darkblue")[attr(X, "innerOrOuter")], 
 
 cData <- clustering::spectral_clustering(X, k=2, mercer_kernel=gaussian_kernel_with_fixed_gamma(30), clustering=k_medoids, 2);
 plot_clustered_2d_data(cData)
+title(main="Clustered Using k-Mediods")
 ```
 
 # DBSCAN and OPTICS
@@ -133,7 +133,7 @@ cluster_by_reachability(data, threshold)
 While the DBSCAN returns the data with clustering information added, the OPTICS algorithm does not produce a clustering by default. It returns the input data with distance information added in the `"core-distance"` and `"reachability-distance"` attributes. The `reachability_plot` function can be used to visualize the reachability information, while the `cluster_by_reachability` function can be used to extract clusters via a threshold. By passing a threshold to the `reachability_plot` function this can also be visualized.
 The following figure shows an example of such a reachability plot with a given threshold.
 
-```{r, fig.width=6}
+```{r, fig.width=4, fig.height=3}
 set.seed(188)
 n <- 50
 x <- cbind(
@@ -144,7 +144,10 @@ x <- t(x)
 d <- c(x, .6, .75, .8, 1.3, 0, 1.6, .6, 1, .9, .9, .5, 1.5, 1, .4, .1, .6);
 x <- matrix(d, nrow=2);
 
+par(ann=FALSE)
 clustering::reachability_plot(clustering::OPTICS(x, .1, 7), .074)
+title(main = "Reachability Plot", xlab = "")
+
 ```
 
 # K-Medoids Algorithm
