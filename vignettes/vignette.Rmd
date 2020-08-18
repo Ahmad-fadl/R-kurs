@@ -19,20 +19,20 @@ knitr::opts_chunk$set(
 library(clustering)
 ```
 
-# Clustering Alforithms
+# Clustering Algorithms
 
 The package contains implementations of the following algorithms:
 
-* k-Means
-* k-Mediods
-* Hierarchical Clustering
 * Spectral Clustering
 * DBSCAN
 * OPTICS
+* k-Mediods
+* k-Means
+* Hierarchical Clustering
 
 In this vignette we demonstrate how these functions are used, the resulting data, and additional functionality of the package. A case study demonstrating the clustering methods themselves can be found in a separate document.
 
-# General Structure of Vector Data
+# General Structure of Input and Output Data
 
 Every function in this package expects/uses matrices whose columns are the input/output vectors, e.g. a collection of two-dimensional vectors is stored in a matrix `m` with `nrow(m)=2`.
 
@@ -46,13 +46,34 @@ attr(X, "cluster") <- c(1,-1,2,2,1)
 print(X)
 ```
 
+# Math Functions
+
+```{r, eval=FALSE}
+euclidean_norm_squared(vector)
+euclidean_norm(vector)
+euclidean_distance(vector1, vector2)
+gaussian_kernel(vector1, vector2, gamma = 7.5)
+infinity_norm(vector), maximum_norm(vector) # different names for the same norm
+one_norm(vector), taxicab_norm(vector), manhattan_norm(vector) # different names for the same norm
+p_norm(vector, p)
+```
+
+The package offers a multitude of predefined math functions, many of them norms, and also function factories for easy generation of additional math functions, e.g. using the `induced_metric_factory` function factory the induced metric of any norm may be produced.
+
+```{r, eval=FALSE}
+gaussian_kernel_with_fixed_gamma(gamma)
+p_norm_factory(p)
+induced_metric_factory(vector_norm)
+```
+
+Should the user want to cluster data using a specific p-Norm, the `p_norm_factory` function factory can return a p-Norm function with a fixed p, the same is true for the Gaussian kernel's gamma value when using the `gaussian_kernel_with_fixed_gamma` function factory.
 
 # Helper Functions for Demonstration and Testing Purposes
 
 The package exports a few functions to generate and plot two-dimensional clusters which may be used to familiarize oneself with the functionality of and the difference between the clustering methods.
 
 ```{r, eval=FALSE}
-generate_2d_cluster(n, center=c(0, 0))
+generate_2d_cluster(n, center = c(0, 0))
 ```
 Generates a single cluster of `n` vectors in a radius of 1 around a given `center` point.
 
@@ -69,9 +90,62 @@ plot(data[1,], data[2,], col=c("darkred", "darkblue")[attr(data, "innerOrOuter")
 ```
 
 ```{r, eval=FALSE}
-plot_clustered_2d_data(data, point_size=.75, show_noise=TRUE, show_legend=FALSE, hide_axis_text=FALSE)
+plot_clustered_2d_data(data, point_size = .75, show_noise = TRUE, show_legend = FALSE, hide_axis_text = FALSE)
 ```
 This function may be used to conveniently plot data clustered by this package's clustering algorithms. Only the first two dimensions are plotted, extra dimensions are ignored.
+
+
+# Spectral Clustering
+
+```{r, eval=FALSE}
+spectral_clustering(data, k = 1, mercer_kernel = gaussian_kernel_with_fixed_gamma(15), clustering = NULL, ...)
+```
+The spectral clustering algorithm produces projections of the input data into lower dimensions, by passing a `k` value the target dimension may be specified. Should the given `k` be larger than the input's dimension the function will report an error. The Mercer-Kernel used during the generation of the output projections may also be customized.
+Since the spectral clustering algorithm itself only projects the input data, a second algorithm has to be employed. This can either be done manually, using the data returned by the `spectral_clustering` function or by passing a clustering algorithm as the `clustering` argument. Any further arguments will be passed into the given clustering algorithm. If the `clustering` argument is set, the function will return clustered data.
+
+```{r, fig.asp=.55}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+set.seed(1)
+
+X <- clustering::generate_nested_2d_training_data(400)
+data <- clustering::spectral_clustering(X, k=2)
+plot(data[1,], data[2,], col=c("darkred", "darkblue")[attr(X, "innerOrOuter")], xlab="", ylab="", main="Projections for gamma = 30")
+
+cData <- clustering::spectral_clustering(X, k=2, mercer_kernel=gaussian_kernel_with_fixed_gamma(30), clustering=k_medoids, 2);
+plot_clustered_2d_data(cData)
+```
+
+# DBSCAN and OPTICS
+
+```{r, eval=FALSE}
+DBSCAN(data, eps, minPts, distanceFunction = euclidean_distance)
+OPTICS(data, eps, minPts, distanceFunction = euclidean_distance, threshold = NULL)
+```
+
+The DBSCAN and OPTICS functions both take the input data as their first argument, an epsilon value to determine the neighborhood of points as the second argument, and a minimum-points value used to determine core points as their third argument. The function use to calculate distance may be specified as the fourth argument.
+
+```{r, eval=FALSE}
+reachability_plot(data, threshold=NULL)
+cluster_by_reachability(data, threshold)
+```
+
+While the DBSCAN returns the data with clustering information added, the OPTICS algorithm does not produce a clustering by default. It returns the input data with distance information added in the `"core-distance"``"reachability-distance"` attributes. The `reachability_plot` function can be used to visualize the reachability information, while the `cluster_by_reachability` function can be used to extract clusters via a threshold. By passing a threshold to the `reachability_plot` function this can also be visualized.
+The following figure shows an example of such a reachability plot with a given threshold.
+
+```{r, fig.width=6}
+set.seed(188)
+n <- 50
+x <- cbind(
+  x = runif(5, 0, 2) + rnorm(n, sd = 0.05),
+  y = runif(5, 0, 2) + rnorm(n, sd = 0.05)
+)
+x <- t(x)
+d <- c(x, .6, .75, .8, 1.3, 0, 1.6, .6, 1, .9, .9, .5, 1.5, 1, .4, .1, .6);
+x <- matrix(d, nrow=2);
+
+clustering::reachability_plot(clustering::OPTICS(x, .1, 7), .074)
+```
 
 # K-Medoids Algorithm
 
@@ -81,27 +155,3 @@ The k-medoids algorithm is a clustering approach related to k-means clustering. 
 data <- matrix(c(8,7,3,7,4,9,9,6,8,5,5,8,7,3,8,4,7,5,4,5), nrow = 2)
 k_medoids(data, 2)
 ```
-
-# Spectral Clustering
-
-```{r, eval=FALSE}
-spectral_clustering(data, k=1, mercer_kernel=gaussian_kernel_with_fixed_gamma(15), clustering=NULL, ...)
-```
-The spectral clustering algorithm produces projections of the input data into lower dimensions, by passing a `k` value the target dimension may be specified. Should the given `k` be larger than the input's dimension the function will report an error. The Mercer-Kernel used during the generation of the output projections may also be customized. Since the spectral clustering algorithm itself only projects the input data, a second algorithm has to be employed. This can either be done manually, using the data returned by the `spectral_clustering` function or by passing a clustering algorithm as the `clustering` argument. Any further arguments will be passed into the given clustering algorithm. If the `clustering` argument is set, the function will return clustered data.
-
-```{r, cache=TRUE, echo=FALSE}
-par(mfrow=c(1,2), mar=c(3,3,2,1))
-
-set.seed(1)
-
-X <- clustering::generate_nested_2d_training_data(400)
-data <- clustering::spectral_clustering(X, k=2)
-plot(data[1,], data[2,], col=c("darkred", "darkblue")[attr(X, "innerOrOuter")], xlab="", ylab="", main="Projections for gamma = 30")
-
-cData <- clustering::spectral_clustering(X, k=2, mercer_kernel=gaussian_kernel_with_fixed_gamma(30), clustering=kmean, 2);
-attr(X, "cluster") <- attr(cData, "clusters")
-attr(cData, "cluster") <- attr(cData, "clusters")
-plot_clustered_2d_data(cData)
-```
-
-
