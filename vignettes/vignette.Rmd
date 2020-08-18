@@ -1,0 +1,99 @@
+---
+title: "13 - Clustering: Functionality and Usage"
+output: pdf_document
+#output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{13 - Clustering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(clustering)
+```
+
+# Clustering Alforithms
+
+The package contains implementations of the following algorithms:
+
+* k-Means
+* k-Mediods
+* Hierarchical Clustering
+* Spectral Clustering
+* DBSCAN
+* OPTICS
+
+In this vignette we demonstrate how these functions are used, the resulting data, and additional functionality of the package. A case study demonstrating the clustering methods themselves can be found in a separate document.
+
+# General Structure of Vector Data
+
+Every function in this package expects/uses matrices whose columns are the input/output vectors, e.g. a collection of two-dimensional vectors is stored in a matrix `m` with `nrow(m)=2`.
+
+```{r, echo=FALSE}
+print(generate_2d_cluster(5))
+```
+Clusters produced by the clustering algorithms will be stored in the `"cluster"` attribute of the output data. A negative value always denotes noise.
+```{r, echo=FALSE}
+X <- generate_2d_cluster(5)
+attr(X, "cluster") <- c(1,-1,2,2,1)
+print(X)
+```
+
+
+# Helper Functions for Demonstration and Testing Purposes
+
+The package exports a few functions to generate and plot two-dimensional clusters which may be used to familiarize oneself with the functionality of and the difference between the clustering methods.
+
+```{r, eval=FALSE}
+generate_2d_cluster(n, center=c(0, 0))
+```
+Generates a single cluster of `n` vectors in a radius of 1 around a given `center` point.
+
+```{r, eval=FALSE}
+generate_nested_2d_training_data(n)
+```
+Generates two nested clusters of `n` vectors. In addition, the returned data contains an extra attribute specifying to which cluster a given vector belongs. This is not used by any clustering algorithm but may be used to color data in a plot or to check the quality of a clustering algorithms result.
+
+The following figure demonstrates how to use the latter function:
+
+```{r, fig.width=4, fig.height=4}
+data <- generate_nested_2d_training_data(400)
+plot(data[1,], data[2,], col=c("darkred", "darkblue")[attr(data, "innerOrOuter")], xlab="", ylab="")
+```
+
+```{r, eval=FALSE}
+plot_clustered_2d_data(data, point_size=.75, show_noise=TRUE, show_legend=FALSE, hide_axis_text=FALSE)
+```
+This function may be used to conveniently plot data clustered by this package's clustering algorithms. Only the first two dimensions are plotted, extra dimensions are ignored.
+
+
+# Spectral Clustering
+
+```{r, eval=FALSE}
+spectral_clustering(data, k=1, mercer_kernel=gaussian_kernel_with_fixed_gamma(15), clustering=NULL, ...)
+```
+The spectral clustering algorithm produces projections of the input data into lower dimensions, by passing a `k` value the target dimension may be specified. Should the given `k` be larger than the input's dimension the function will report an error. The Mercer-Kernel used during the generation of the output projections may also be customized. Since the spectral clustering algorithm itself only projects the input data, a second algorithm has to be employed. This can either be done manually, using the data returned by the `spectral_clustering` function or by passing a clustering algorithm as the `clustering` argument. Any further arguments will be passed into the given clustering algorithm. If the `clustering` argument is set, the function will return clustered data.
+
+```{r, cache=TRUE, echo=FALSE}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+set.seed(1)
+
+X <- clustering::generate_nested_2d_training_data(400)
+data <- clustering::spectral_clustering(X, k=2)
+plot(data[1,], data[2,], col=c("darkred", "darkblue")[attr(X, "innerOrOuter")], xlab="", ylab="", main="Projections for gamma = 30")
+
+cData <- clustering::spectral_clustering(X, k=2, mercer_kernel=gaussian_kernel_with_fixed_gamma(30), clustering=kmean, 2);
+attr(X, "cluster") <- attr(cData, "clusters")
+attr(cData, "cluster") <- attr(cData, "clusters")
+plot_clustered_2d_data(cData)
+```
+
+
