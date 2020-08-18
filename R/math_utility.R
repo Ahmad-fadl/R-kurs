@@ -34,7 +34,7 @@ euclidean_norm <- function (x) {
 
 
 #' Calculate the Euclidean distance between two vectors.
-#' @description \code{euclidean_distance} calculates the squared Euclidean norm of a vector.
+#' @description \code{euclidean_distance} calculates the  Euclidean norm of a vector.
 #'
 #' @param x a vector representing a (mathematical) vector
 #' @param y a vector representing a (mathematical) vector
@@ -50,8 +50,22 @@ euclidean_norm <- function (x) {
 euclidean_distance <- function(x,y) {
   euclidean_norm(x-y)
 }
-
-
+#' Calculate the squared Euclidean distance between two vectors.
+#' @description \code{euclidean_distance_sqared} calculates the squared Euclidean norm of a vector.
+#'
+#' @param x a vector representing a (mathematical) vector
+#' @param y a vector representing a (mathematical) vector
+#'
+#' @return double; Euclidean distance between \code{x} and \code{y}
+#' @export
+#'
+#' @examples
+#' x = c(1,2,3)
+#' y = c(2,3,4)
+#' euclidean_distance_squared(x, y)
+euclidean_distance_squared <- function(x,y) {
+  euclidean_norm_squared(x-y)
+}
 #' Calculate the Gaussian kernel for Two Input Vectors
 #' @description \code{gaussian_core} calculates the gaussian kernel of two given vectors \code{x} and \code{y} of the same length using \code{gamma}.
 #'
