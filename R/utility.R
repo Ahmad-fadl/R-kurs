@@ -107,9 +107,9 @@ plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_l
   col_gen <- get_color_generator();
 
   if (hide_axis_text) {
-    plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75, cex.names=.75, xaxt='n', yaxt='n');
+    suppressWarnings(plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75, cex.names=.75, xaxt='n', yaxt='n'));
   } else {
-    plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75, cex.names=.75);
+    suppressWarnings(plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75, cex.names=.75));
   }
 
   legendlabels <- c()
