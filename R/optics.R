@@ -14,6 +14,7 @@
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 #' DBSCAN(data, .2, 1)
 OPTICS <- function (data, eps, minPts, distanceFunction = euclidean_distance, threshold=NULL) {
+  stopifnot("data cannot be empty!" = length(data) > 0);
   stopifnot( "data has to be a matrix. columns are vectors." = is.matrix(data));
   stopifnot( "eps has to be a positive number" = eps > 0);
   stopifnot( "minPts has to be a positive integer." = as.integer(minPts) > 0);
