@@ -16,7 +16,7 @@
 m <- function(mydata,k){
   len = ncol(mydata)
   z = matrix(1,ncol = k,nrow = nrow(mydata))
-  for (i in 1:k) z[,i] = mydata[,as.integer(((len/k) * i)-(len/(k*2)))]
+  for (i in 1:k) z[,i] = mydata[,round(((len/k) * i)-(len/(k*2)))]
   return(z)
 }
 
@@ -44,7 +44,7 @@ kmean <- function(mydata,k=3,distanceFunction=euclidean_norm_squared) {
   iter = 0
   while (TRUE) {
     for (i in seq_along(mydata[1,])) {
-      for (j in 2:k) {
+      for (j in 1:k) {
         #print(as.integer(attr(mydata[[i]],'cluster')))
         if(distanceFunction(mydata[,i]-zent[,attr(mydata,"clusters")[i]]) > distanceFunction(mydata[,i]-zent[,j]))
           {attr(mydata,"clusters")[i]=j}
@@ -68,18 +68,17 @@ kmean <- function(mydata,k=3,distanceFunction=euclidean_norm_squared) {
       konvergenz = konvergenz + distanceFunction(zent[,i]- newzent[,i])
     }
 
-    if(konvergenz<=1){
+    if(konvergenz<=10e-20){
       break
     }
 
     zent = newzent
     iter = iter +1
-    if (iter>200){
-      print("es gibt keine eindeutige Zetren von clusters")
-      break
-      }
+    #if (iter>200){
+     # print("es gibt keine eindeutige Zetren von clusters")
+      #break
+      #}
   }
-  mydata = `attr<-`(mydata,"centers",round(zent))
+  mydata = `attr<-`(mydata,"centers",zent)
   return(mydata)
 }
-
