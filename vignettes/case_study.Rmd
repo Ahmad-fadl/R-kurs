@@ -137,12 +137,13 @@ clustering::reachability_plot(clustering::OPTICS(x, .1, 7), .074)
 
 The k-medoids algorithm is a clustering approach related to k-means clustering. It is used to partition a data set into k clusters. Each cluster is represented by one medoid. A medoid can be defined as the point in the cluster, whose dissimilarities with all the other points in the cluster is minimum. The k-medoids algorithm requires the user to specify the number of clusters k
 
-## Example
+## Example data with 2 or 3 clusters
 
 ```{r, cache=TRUE, echo=FALSE, fig.asp=.6}
 par(mfrow=c(1,2), mar=c(3,3,2,1))
 X <- matrix(c(8,7,3,7,4,9,9,6,8,5,5,8,7,3,8,4,7,5,4,5), nrow = 2)
-plot2d(X, title=NULL,xlabel="", ylabel="")
 
 suppressWarnings(clustering::plot_clustered_2d_data(k_medoids(X, 2), show_noise = FALSE, show_legend = TRUE))
+
+suppressWarnings(clustering::plot_clustered_2d_data(k_medoids(X, 3), show_noise = FALSE, show_legend = TRUE))
 ```
