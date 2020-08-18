@@ -12,7 +12,7 @@ reachability_plot(data, threshold = NULL)
 \item{threshold}{numeric; show the given threshold in the plot, optinal.}
 }
 \value{
-returns the input data untouched
+
 }
 \description{
 Generates a reachability plot for data resulting from the OPTICS function.

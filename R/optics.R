@@ -99,7 +99,7 @@ OPTICS <- function (data, eps, minPts, distanceFunction = euclidean_distance, th
 #' @param data matrix; data has to be the result of a previous run of the OPTICS algorithm.
 #' @param threshold numeric; show the given threshold in the plot, optinal.
 #'
-#' @return returns the input data untouched
+#' @return
 #' @export
 #'
 #' @examples
@@ -123,8 +123,6 @@ reachability_plot <- function (data, threshold=NULL) {
 
   plot(seq(n - numNoise), y, type="h");
   if (!missing(threshold)) abline(h=threshold, col="red");
-
-  return(data);
 }
 
 
