@@ -36,7 +36,7 @@ m <- function(mydata,k){
 #' @examples
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 #' kmean(data, 3)
-kmean <- function(mydata,k=3,distanceFunction=euclidean_norm_squared) {
+kmean <- function(mydata,k=3,distanceFunction=euclidean_distance) {
   stopifnot( "data has to be a matrix. columns are vectors." = is.matrix(mydata));
   stopifnot("data cannot be empty!" = length(mydata) > 0)
   zent = m(mydata,k)
@@ -46,7 +46,7 @@ kmean <- function(mydata,k=3,distanceFunction=euclidean_norm_squared) {
     for (i in seq_along(mydata[1,])) {
       for (j in 1:k) {
         #print(as.integer(attr(mydata[[i]],'cluster')))
-        if(distanceFunction(mydata[,i]-zent[,attr(mydata,"cluster")[i]]) > distanceFunction(mydata[,i]-zent[,j]))
+        if(distanceFunction(mydata[,i],zent[,attr(mydata,"cluster")[i]]) > distanceFunction(mydata[,i],zent[,j]))
           {attr(mydata,"cluster")[i]=j}
       }
     }
@@ -65,7 +65,7 @@ kmean <- function(mydata,k=3,distanceFunction=euclidean_norm_squared) {
     }
     konvergenz = 0
     for (i in seq_along(zent[1,])) {
-      konvergenz = konvergenz + distanceFunction(zent[,i]- newzent[,i])
+      konvergenz = konvergenz + distanceFunction(zent[,i], newzent[,i])
     }
 
     if(konvergenz<=10e-20){
@@ -82,3 +82,4 @@ kmean <- function(mydata,k=3,distanceFunction=euclidean_norm_squared) {
   mydata = `attr<-`(mydata,"centers",zent)
   return(mydata)
 }
+
