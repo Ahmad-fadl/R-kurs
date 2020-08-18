@@ -19,7 +19,7 @@ m <- function(mydata,k){
   for (i in 1:k) z[,i] = mydata[,as.integer(((len/k) * i)-(len/(k*2)))]
   return(z)
 }
-source("R\\math_utility.r")
+
 
 #' @description kmean algorithm see Richter19 9.10
 #' @param data matrix; matrix columns are (mathematical) vectors. Input data.
