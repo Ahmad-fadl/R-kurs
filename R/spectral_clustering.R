@@ -17,6 +17,7 @@ spectral_clustering <- function (data, k=1, mercer_kernel=gaussian_kernel_with_f
   stopifnot("The input data has to be a matrix." = is.matrix(data));
   k <- as.integer(k);
   stopifnot("The target dimension k has to be a positive integer." = k > 0);
+  stopifnot("The target dimension k has to be less than or equal to the input data dimension." = k <= nrow(data));
 
   n <- ncol(data);
 
@@ -57,6 +58,8 @@ spectral_clustering <- function (data, k=1, mercer_kernel=gaussian_kernel_with_f
 
   if(!missing(clustering)) {
     alpha <- clustering(alpha, ...);
+    attr(data, "cluster") <- attr(alpha, "cluster");
+    return(data);
   }
 
   return(alpha);
