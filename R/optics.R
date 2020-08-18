@@ -121,7 +121,7 @@ reachability_plot <- function (data, threshold=NULL) {
     y <- c(y, reach_dist);
   }
 
-  plot(seq(n - numNoise), y, type="h");
+  plot(seq(n - numNoise), y, type="h", xlab="", ylab="Reachability Distance", cex.axis=.75);
   if (!missing(threshold)) abline(h=threshold, col="red");
 }
 
