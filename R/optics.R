@@ -4,7 +4,7 @@
 #'
 #' @param data matrix; matrix columns are (mathematical) vectors. Input data.
 #' @param eps double; neighborhood radius
-#' @param MinPts integer; minimum number of points in neighborhood required
+#' @param minPts integer; minimum number of points in neighborhood required
 #' @param distanceFunction function; function calculating the distance between two vectors of length \code{nrow(data)}
 #' @param extractDBSCAN logical; if TRUE the DBSCAN will be extracted from the OPTICS data before returning.
 #'

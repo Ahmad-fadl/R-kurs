@@ -11,9 +11,9 @@ DBSCAN(data, eps, minPts, distanceFunction = euclidean_distance)
 
 \item{eps}{double; neighborhood radius}
 
-\item{distanceFunction}{function; function calculating the distance between two vectors of length \code{nrow(data)}}
+\item{minPts}{integer; minimum number of points in neighborhood required}
 
-\item{MinPts}{integer; minimum number of points in neighborhood required}
+\item{distanceFunction}{function; function calculating the distance between two vectors of length \code{nrow(data)}}
 }
 \value{
 matrix; input data with attribute "cluster" assigning a cluster to every column-vector.

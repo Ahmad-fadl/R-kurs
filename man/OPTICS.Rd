@@ -17,11 +17,11 @@ OPTICS(
 
 \item{eps}{double; neighborhood radius}
 
+\item{minPts}{integer; minimum number of points in neighborhood required}
+
 \item{extractDBSCAN}{logical; if TRUE the DBSCAN will be extracted from the OPTICS data before returning.}
 
 \item{distanceFunction}{function; function calculating the distance between two vectors of length \code{nrow(data)}}
-
-\item{MinPts}{integer; minimum number of points in neighborhood required}
 }
 \value{
 matrix; input data with the data produced by the OPTICS algorithm added as attributes.

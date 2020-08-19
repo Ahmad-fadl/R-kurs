@@ -20,6 +20,8 @@ plot_clustered_2d_data(
 \item{show_noise}{logical; toggle plotting of noise}
 
 \item{show_legend}{logical; toggle legend display}
+
+\item{hide_axis_text}{logical; toggle axis text}
 }
 \value{
 

@@ -73,6 +73,7 @@ generate_2d_cluster <- function (n, center=c(0,0)) {
 #' @param point_size numeric; size of the points
 #' @param show_noise logical; toggle plotting of noise
 #' @param show_legend logical; toggle legend display
+#' @param hide_axis_text logical; toggle axis text
 #'
 #' @return
 #' @export
