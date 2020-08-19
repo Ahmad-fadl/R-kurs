@@ -1,0 +1,130 @@
+---
+title: "R Course Project"
+subtitle: "Clustering"
+output: ioslides_presentation
+vignette: >
+  %\VignetteIndexEntry{presentation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, echo=FALSE}
+library(clustering)
+```
+
+# Introduction
+
+
+## The Goal of Clustering
+
+- given a set of input data
+- try to identify related vectors
+- groups of related vectors are called a ***cluster***
+
+```{r, echo=FALSE, fig.asp=.55, warning=FALSE}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+set.seed(188)
+n <- 50
+x <- cbind(
+  x = runif(5, 0, 2) + rnorm(n, sd = 0.05),
+  y = runif(5, 0, 2) + rnorm(n, sd = 0.05)
+)
+x <- t(x)
+d <- c(x, .6, .75, .8, 1.3, 0, 1.6, .6, 1, .9, .9, .5, 1.5, 1, .4, .1, .6);
+x <- matrix(d, nrow=2);
+
+y <- x
+attr(y, "cluster") <- rep(-1, n)
+clustering::plot_clustered_2d_data(y,show_noise = TRUE);
+clustering::plot_clustered_2d_data(DBSCAN(x, .1, 7));
+```
+
+## Input Data
+
+- data is saved in matrices
+- columns are vectors
+- $\text{data} \subset \mathbb{R}^{\text{nrow(data)}}$
+- $\#\text{data} = ncol(data)$
+
+```{r, echo=FALSE, fig.cap="Sample data: Five two-dimensional Vectors"}
+print(generate_2d_cluster(5))
+```
+
+## Output Data
+
+- algorithms return input data
+- cluster information saved in the attribute `"cluster"`
+- non-positive cluster values denote noise, e.g. `-1`
+
+```{r, echo=FALSE}
+X <- generate_2d_cluster(5)
+attr(X, "cluster") <- c(1,-1,2,2,1)
+print(X)
+```
+
+
+# Clustering Example
+
+## Spectral Clustering
+
+- algorithm does generated projections of the vectors
+- does not directly produce a clustering
+- by running another algorithm on the projections clusters can be found
+
+<!-- Note: - colors are not visible to the algorithm -> only for visualization purposes -->
+<!--       - k-medoids algorithm used to find clusters -->
+
+
+```{r, fig.asp=.35, cache=TRUE, echo=FALSE}
+par(mfrow=c(1,3), mar=c(3,3,2,1))
+
+set.seed(1)
+
+X <- clustering::generate_nested_2d_training_data(400)
+plot(X[1,], X[2,], xlab="", ylab="", col=c("darkred", "darkblue")[attr(X, "innerOrOuter")])
+title("Nested Clusters")
+
+data <- clustering::spectral_clustering(X, k=2)
+plot(data[1,], data[2,], col=c("darkred", "darkblue")[attr(X, "innerOrOuter")], xlab="", ylab="", main="Generated Projections")
+
+cData <- clustering::spectral_clustering(X, k=2, mercer_kernel=gaussian_kernel_with_fixed_gamma(30), clustering=k_medoids, 2);
+plot_clustered_2d_data(cData)
+title("Resulting Clustering")
+```
+
+## TODO: another clustering example
+
+
+# The Package
+##
+3. Paket vorstellen,
+Was erwarten die Clustering Funktionen für Argumente
+Was geben die für Ausgaben
+Liste aller Funktionen
+Darauf eingehen, das die alle ungefähr dieselben Argumente brauchen
+
+
+# Live Demonstration
+##
+4. Live-Beispiele
+nur mit der Standardfunktionalität
+(zu 4.: Fehlerausgaben funktionieren usw)
+(zu 4.: Dokumentation)
+
+
+# Special Functionality
+##
+5. Besonderen Funktionen
+(Hierarchical Clustering: Dendrogramm, Voronoi-Zellen bei K-means, Optics die extra-Graphen)
+
+# Real Data Example
+##
+6. Beispiel mit richtigen Daten
