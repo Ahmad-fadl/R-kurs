@@ -1,5 +1,5 @@
 *.html
 *.R
-case_study_cache/
+*_cache/
 *-tikzDictionary
 *.aux
