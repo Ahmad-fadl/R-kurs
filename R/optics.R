@@ -6,43 +6,45 @@
 #' @param eps double; neighborhood radius
 #' @param MinPts integer; minimum number of points in neighborhood required
 #' @param distanceFunction function; function calculating the distance between two vectors of length \code{nrow(data)}
+#' @param extractDBSCAN logical; if TRUE the DBSCAN will be extracted from the OPTICS data before returning.
 #'
-#' @return matrix; input data with attribute "cluster" assigning a cluster to every column-vector.
+#' @return matrix; input data with the data produced by the OPTICS algorithm added as attributes.
 #' @export
 #'
 #' @examples
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
-#' DBSCAN(data, .2, 1)
-OPTICS <- function (data, eps, minPts, distanceFunction = euclidean_distance, threshold=NULL) {
+#' OPTICS(data, .2, 1)
+OPTICS <- function (data, eps, minPts, extractDBSCAN=FALSE, distanceFunction = euclidean_distance) {
   stopifnot("data cannot be empty!" = length(data) > 0);
-  stopifnot( "data has to be a matrix. columns are vectors." = is.matrix(data));
-  stopifnot( "eps has to be a positive number" = eps > 0);
-  stopifnot( "minPts has to be a positive integer." = as.integer(minPts) > 0);
+  stopifnot("data has to be a matrix. columns are vectors." = is.matrix(data));
 
-  n <- ncol(data)
+  stopifnot("eps has to be numeric" = is.numeric(eps));
+  stopifnot("eps has to be a positive number" = eps > 0);
 
-  o <- c()
+  stopifnot("minPts has to be numeric" = is.numeric(minPts));
+  minPts <- as.integer(minPts);
+  stopifnot( "minPts has to be a positive integer." = minPts > 0);
 
   getNeighbors <- function (idx) {
     P <- data[, idx];
     distances <- apply(data, 2, function(D){ distanceFunction(P, D) })
 
-    neighbors <- seq(n)[distances <= eps];
+    neighbors <- seq(n)[distances < eps];
     attr(neighbors, "core-distance") <- distances[order(distances)[minPts]];
     return(neighbors)
   }
 
   update <- function (N, p_idx) {
-    coredist <- attr(data, "core-distance")[p_idx]
+    coredist <- core_dist[p_idx]
     for (neighbor in N) {
-      if (attr(data, "visited")[neighbor] == FALSE) {
+      if (!visited[neighbor]) {
         new_reach_dist <- max(coredist, distanceFunction(data[, p_idx], data[, neighbor]));
-        if (attr(data, "reachability-distance")[neighbor] == -1) {
-          attr(data, "reachability-distance")[neighbor] <<- new_reach_dist;
+        if (reach_dist[neighbor] == UNDEFINED) {
+          reach_dist[neighbor] <<- new_reach_dist;
           in_seeds[neighbor] <<- TRUE;
         } else {
-          if (new_reach_dist < attr(data, "reachability-distance")[neighbor]) {
-            attr(data, "reachability-distance")[neighbor] <<- new_reach_dist;
+          if (new_reach_dist < reach_dist[neighbor]) {
+            reach_dist[neighbor] <<- new_reach_dist;
             in_seeds[neighbor] <<- TRUE;
           }
         }
@@ -50,47 +52,68 @@ OPTICS <- function (data, eps, minPts, distanceFunction = euclidean_distance, th
     }
   }
 
-  attr(data, "visited") <- rep(FALSE, n);
-  attr(data, "reachability-distance") <- rep(-1, n);
-  attr(data, "core-distance") <- rep(-1, n);
+  getNextSeedIndex <- function () {
+    which(in_seeds, TRUE)[which.min(reach_dist[in_seeds])];
+  }
+
+  writeToOrder <- function (idx) {
+    attr(data, "reachability-distance")[idx] <<- reach_dist[idx];
+    order <<- c(order, idx)
+  }
+
+  UNDEFINED <- Inf;
+
+  attr(data, "reachability-distance") <- rep(UNDEFINED, n);
+
+  n <- ncol(data)
+  visited <- logical(n)
+  reach_dist <- rep(UNDEFINED, n)
+  core_dist <- rep(UNDEFINED, n)
+  order <- c()
 
   for (p_idx in seq(n)) {
-    if (attr(data, "visited")[p_idx] == FALSE) {
+    if (visited[p_idx] == FALSE) {
+      # expandClusterOrder
       neighbors <- getNeighbors(p_idx);
-      attr(data, "visited")[p_idx] <- TRUE;
+      visited[p_idx] <- TRUE;
+      reach_dist[p_idx] <- UNDEFINED;
       if(length(neighbors) >= minPts) {
-        attr(data, "core-distance")[p_idx] <- attr(neighbors, "core-distance");
+        core_dist[p_idx] <- attr(neighbors, "core-distance");
       }
-      o <- c(o, p_idx)
-      if (attr(data, "core-distance")[p_idx] != -1){
+      writeToOrder(p_idx)
+      if (core_dist[p_idx] != UNDEFINED){
         in_seeds <- rep(FALSE, n);
         update(neighbors, p_idx);
         while (sum(in_seeds) > 0){
-          q_idx = which(in_seeds, TRUE)[which.min(attr(data, "reachability-distance")[in_seeds])];
+          q_idx = getNextSeedIndex();
           in_seeds[q_idx] <- FALSE;
 
           neighbors_prime <- getNeighbors(q_idx);
-          attr(data, "visited")[q_idx] <- TRUE;
-          o <- c(o, q_idx);
+          visited[q_idx] <- TRUE;
+          writeToOrder(q_idx)
           if (length(neighbors_prime) >= minPts) {
-            attr(data, "core-distance")[q_idx] <- attr(neighbors_prime, "core-distance");
+            core_dist[q_idx] <- attr(neighbors_prime, "core-distance");
           }
-          if (attr(data, "core-distance")[q_idx] != -1) {
+          if (core_dist[q_idx] != UNDEFINED) {
             update(neighbors_prime, q_idx);
           }
         }
       }
+      # END expandClusterOrder
     }
   }
 
-  attr(data, "visited") <- NULL;
-  attr(data, "ordering") <- o;
 
-  if (!missing(threshold)) {
-    data <- cluster_by_reachability(data, threshold);
+  attr(data, "core-distance") <- core_dist;
+  attr(data, "ordering") <- order;
+  attr(data, "eps") <- eps;
+  attr(data, "minPts") <- minPts;
+
+  if (extractDBSCAN) {
+    data <- extract_DBSCAN_clustering(data);
   }
 
-  return(data)
+  return(data);
 }
 
 
@@ -123,12 +146,12 @@ reachability_plot <- function (data, threshold=NULL) {
   }
 
   plot(seq(n - numNoise), y, type="h", cex.axis=.75, xlab="", ylab="");
-  if (!missing(threshold)) abline(h=threshold, col="red");
+  if (!missing(threshold)) graphics::abline(h=threshold, col="red");
 }
 
 
 #' Cluster by Reachability
-#' @description Extract cluster via a reachability threshold. Using the correct threshold extracts the DBSCAN clustering. This correct threshold might for example be guessed by looking at the reachability plot with each valley being a cluster.
+#' @description Extract cluster via a reachability threshold. Using the correct threshold extracts the DBSCAN clustering. This correct threshold might for example be guessed by looking at the reachability plot with each valley being a cluster. This naive approach is inferior to the extract_DBSCAN_clustering function!
 #'
 #' @param data matrix; input vectors, with each column of the matrix being a vector. \code{nrow(data)} is the ector dimension.
 #' @param threshold double threshold used to determine clusters
@@ -159,6 +182,92 @@ cluster_by_reachability <- function (data, threshold) {
         prevWasNoise <- FALSE;
       }
       cluster[idx] <- curCluster;
+    }
+  }
+
+  attr(data, "cluster") <- cluster;
+
+  return(data);
+}
+
+# this is currently not very helpful or pleasant to look at
+# ordered_plot <- function (data) {
+#   plot_clustered_2d_data(data);
+#
+#   NOISE <- -1;
+#
+#   n <- ncol(data);
+#   x <- data[1,];
+#   y <- data[2,];
+#   cluster <- attr(data, "cluster");
+#   order <- attr(data, "ordering");
+#   for (i in 2:n) {
+#     a <- order[i-1]
+#     b <- order[i]
+#     if (cluster[a] == NOISE) {
+#       i <- i + 1;
+#       next;
+#     }
+#     # if (cluster[a] != cluster[b]) next;
+#     segments(x[a], y[a], x[b], y[b], lwd=1, col=rgb(0,0,0,.5))
+#   }
+# }
+
+
+#' Extract DBSCAN Clustering
+#' @description Extract the DBSCAN clustering from data processed by the OPTICS algorithm according to the paper "OPTICS: Ordering Points To Identify the Clustering Structure".
+#'
+#' @param data matrix; data processed by the OPTICS algorithm
+#' @param eps_prime double; radius used for cluster extraction. \code{eps_prime} has to be less than or equal to the \code{eps} used in the OPTICS algorithm. If this is not set the OPTICS's \code{eps} value is used instead.
+#'
+#' @return The input data with the \code{"cluster"} attribute added which contains the clustering information.
+#' @export
+#'
+#' @examples
+#' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
+#' opt_data <- OPTICS(data, .2, 1)
+#' extract_DBSCAN_clustering(opt_data, .2)
+extract_DBSCAN_clustering <- function (data, eps_prime=NULL) {
+  stopifnot("data has to be processed by the OPTICS algorithm first" = 5 == sum(
+    c(
+      "dim",
+      "reachability-distance",
+      "code-distance",
+      "ordering",
+      "eps",
+      "minPts"
+    ) %in% names(attributes(opt))
+  ))
+
+
+  if (missing(eps_prime)) {
+    eps_prime <- attr(data, "eps");
+  } else {
+    stopifnot("eps_prime has to be less than or equal to the epsilon used in the OPTICS algorithm" = eps_prime <= attr(data, "eps"));
+  }
+
+  UNDEFINED <- Inf;
+  NOISE <- -1;
+
+  n <- ncol(data);
+  order <-attr(data, "ordering");
+  rd <- attr(data, "reachability-distance");
+  cd <- attr(data, "core-distance");
+
+  cluster <- integer(n);
+
+  curCluster <- 0;
+  for (j in seq(n)) {
+    i <- order[j];
+    if (rd[i] > eps_prime) {
+      if (cd[i] <= eps_prime) {
+        curCluster <- curCluster + 1;
+        cluster[i] <- curCluster;
+      } else {
+        cluster[i] <- NOISE;
+      }
+    } else {
+      cluster[i] <- curCluster;
     }
   }
 

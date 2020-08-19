@@ -6,7 +6,7 @@
 \alias{clustering-package}
 \title{clustering: R-Course Project 13: Clustering}
 \description{
-This package implements a variety of clustering and algorithms as part of the R-Course during the summer term of 2020.
+This package implements a variety of clustering algorithms and some related utility as part of the R-Course during the summer term of 2020.
 }
 \author{
 \strong{Maintainer}: Ahmad Allah \email{Fadl@stud.uni-heidelberg.de} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})

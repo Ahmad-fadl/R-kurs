@@ -15,7 +15,7 @@ cluster_by_reachability(data, threshold)
 returns \code{data} with an addition \code{"cluster"} attribute containing the clusters. Noise is marked as -1.
 }
 \description{
-Extract cluster via a reachability threshold. Using the correct threshold extracts the DBSCAN clustering. This correct threshold might for example be guessed by looking at the reachability plot with each valley being a cluster.
+Extract cluster via a reachability threshold. Using the correct threshold extracts the DBSCAN clustering. This correct threshold might for example be guessed by looking at the reachability plot with each valley being a cluster. This naive approach is inferior to the extract_DBSCAN_clustering function!
 }
 \examples{
 data <- generate_2d_cluster(200);

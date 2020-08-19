@@ -8,8 +8,8 @@ OPTICS(
   data,
   eps,
   minPts,
-  distanceFunction = euclidean_distance,
-  threshold = NULL
+  extractDBSCAN = FALSE,
+  distanceFunction = euclidean_distance
 )
 }
 \arguments{
@@ -17,17 +17,19 @@ OPTICS(
 
 \item{eps}{double; neighborhood radius}
 
+\item{extractDBSCAN}{logical; if TRUE the DBSCAN will be extracted from the OPTICS data before returning.}
+
 \item{distanceFunction}{function; function calculating the distance between two vectors of length \code{nrow(data)}}
 
 \item{MinPts}{integer; minimum number of points in neighborhood required}
 }
 \value{
-matrix; input data with attribute "cluster" assigning a cluster to every column-vector.
+matrix; input data with the data produced by the OPTICS algorithm added as attributes.
 }
 \description{
 Finds clusters in the input data using the OPTICS algorithm.
 }
 \examples{
 data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
-DBSCAN(data, .2, 1)
+OPTICS(data, .2, 1)
 }
