@@ -34,7 +34,7 @@ euclidean_norm <- function (x) {
 
 
 #' Calculate the Euclidean distance between two vectors.
-#' @description \code{euclidean_distance} calculates the  Euclidean norm of a vector.
+#' @description \code{euclidean_distance} calculates the Euclidean distance between the given vectors.
 #'
 #' @param x a vector representing a (mathematical) vector
 #' @param y a vector representing a (mathematical) vector
@@ -51,7 +51,7 @@ euclidean_distance <- function(x,y) {
   euclidean_norm(x-y)
 }
 #' Calculate the squared Euclidean distance between two vectors.
-#' @description \code{euclidean_distance_sqared} calculates the squared Euclidean norm of a vector.
+#' @description \code{euclidean_distance_sqared} calculates the squared Euclidean distance between the given vectors.
 #'
 #' @param x a vector representing a (mathematical) vector
 #' @param y a vector representing a (mathematical) vector

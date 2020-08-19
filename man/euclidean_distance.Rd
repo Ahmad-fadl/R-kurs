@@ -15,7 +15,7 @@ euclidean_distance(x, y)
 double; Euclidean distance between \code{x} and \code{y}
 }
 \description{
-\code{euclidean_distance} calculates the squared Euclidean norm of a vector.
+\code{euclidean_distance} calculates the Euclidean distance between the given vectors.
 }
 \examples{
 x = c(1,2,3)
