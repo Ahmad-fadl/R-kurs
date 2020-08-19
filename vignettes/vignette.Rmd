@@ -51,7 +51,7 @@ print(X)
 ```{r, eval=FALSE}
 euclidean_norm(vector)
 infinity_norm(vector), maximum_norm(vector) # different names for the same norm
-one_norm(vector), taxicab_norm(vector), manhattan_norm(vector) # different names for the same norm
+one_norm(vector), taxicab_norm(vector), manhattan_norm(vector) # as above
 p_norm(vector, p)
 euclidean_distance(vector1, vector2)
 gaussian_kernel(vector1, vector2, gamma = 7.5)
@@ -85,11 +85,16 @@ The following figure demonstrates how to use the latter function:
 
 ```{r, fig.width=4, fig.height=4}
 data <- generate_nested_2d_training_data(400)
-plot(data[1,], data[2,], col=c("darkred", "darkblue")[attr(data, "innerOrOuter")], xlab="", ylab="")
+plot(data[1,], data[2,],
+     col=c("darkred", "darkblue")[attr(data, "innerOrOuter")],
+     xlab="", ylab="")
 ```
 
 ```{r, eval=FALSE}
-plot_clustered_2d_data(data, point_size = .75, show_noise = TRUE, show_legend = FALSE, hide_axis_text = FALSE)
+plot_clustered_2d_data(data, point_size = .75,
+                       show_noise = TRUE,
+                       show_legend = FALSE,
+                       hide_axis_text = FALSE)
 ```
 This function may be used to conveniently plot data clustered by this package's clustering algorithms. Only the first two dimensions are plotted, extra dimensions are ignored.
 
@@ -97,12 +102,20 @@ This function may be used to conveniently plot data clustered by this package's 
 # Spectral Clustering
 
 ```{r, eval=FALSE}
-spectral_clustering(data, k = 1, mercer_kernel = gaussian_kernel_with_fixed_gamma(15), clustering = NULL, ...)
+spectral_clustering(data, k = 1, mercer_kernel = gaussian_kernel, clustering = NULL, ...)
 ```
 The spectral clustering algorithm produces projections of the input data into lower dimensions, by passing a `k` value the target dimension may be specified. Should the given `k` be larger than the input's dimension the function will report an error. The Mercer-Kernel used during the generation of the output projections may also be customized.
 Since the spectral clustering algorithm itself only projects the input data, a second algorithm has to be employed. This can either be done manually, using the data returned by the `spectral_clustering` function or by passing a clustering algorithm as the `clustering` argument. Any further arguments will be passed into the given clustering algorithm. If the `clustering` argument is set, the function will return clustered data.
 
-```{r, fig.asp=.55}
+```{r, eval=FALSE}
+data <- generate_nested_2d_training_data(400)
+projections <- spectral_clustering(data, k=2)
+clustered_data <- spectral_clustering(X, k=2, 
+                                      mercer_kernel=gaussian_kernel_with_fixed_gamma(30),
+                                      clustering=k_medoids, 2)
+```
+
+```{r, fig.asp=.55, echo=FALSE}
 par(mfrow=c(1,2), mar=c(3,3,2,1))
 
 set.seed(1)
@@ -131,9 +144,8 @@ cluster_by_reachability(data, threshold)
 ```
 
 While the DBSCAN returns the data with clustering information added, the OPTICS algorithm does not produce a clustering by default. It returns the input data with distance information added in the `"core-distance"` and `"reachability-distance"` attributes. The `reachability_plot` function can be used to visualize the reachability information, while the `cluster_by_reachability` function can be used to extract clusters via a threshold. By passing a threshold to the `reachability_plot` function this can also be visualized.
-The following figure shows an example of such a reachability plot with a given threshold.
 
-```{r, fig.width=4, fig.height=3}
+```{r, echo=FALSE}
 set.seed(188)
 n <- 50
 x <- cbind(
@@ -143,11 +155,26 @@ x <- cbind(
 x <- t(x)
 d <- c(x, .6, .75, .8, 1.3, 0, 1.6, .6, 1, .9, .9, .5, 1.5, 1, .4, .1, .6);
 x <- matrix(d, nrow=2);
+```
+
+```{r, eval=FALSE}
+reachability_plot(OPTICS(data, .1, 7), .074)
+extract_DBSCAN_clustering(OPTICS(data, .1, 7))
+```
+
+The left figure shows an example of such a reachability plot with a given threshold drawn.
+Using the reachability and core distance information produced by the OPTICS algorithm, the DBSCAN clustering can be extracted. In addition, the OPTICS algorithm saves the predecessor of each point which allows for a more detailed plot than the DBSCAN itself. An example of this is shown in the right figure.
+
+
+```{r, fig.asp=.55, echo=FALSE}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
 
 par(ann=FALSE)
 clustering::reachability_plot(clustering::OPTICS(x, .1, 7), .074)
 title(main = "Reachability Plot", xlab = "")
 
+plot_clustered_2d_data(extract_DBSCAN_clustering(clustering::OPTICS(x, .1, 7)), connect_to_predecessor=TRUE, point_size = .35)
+title(main = "Extracted DBSCAN", xlab = "")
 ```
 
 # K-Medoids Algorithm

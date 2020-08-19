@@ -122,8 +122,8 @@ title("Resulting Clustering")
 
 ```{r, eval=FALSE}
 DBSCAN(data, eps, minPts, distanceFunction = euclidean_distance)
-OPTICS(data, eps, minPts, distanceFunction = euclidean_distance, threshold = NULL)
-spectral_clustering(data, k = 1, mercer_kernel = gaussian_kernel_with_fixed_gamma(15), clustering = NULL, ...)
+OPTICS(data, eps, minPts, distanceFunction = euclidean_distance)
+spectral_clustering(data, k = 1, mercer_kernel)
 ```
 
 
@@ -145,9 +145,39 @@ spectral_clustering(data, k = 1, mercer_kernel = gaussian_kernel_with_fixed_gamm
 
 
 # Special Functionality
-##
-5. Besonderen Funktionen
-(Hierarchical Clustering: Dendrogramm, Voronoi-Zellen bei K-means, Optics die extra-Graphen)
+## OPTICS
+- OPTICS algorithm produces reachability data and an ordering
+<!-- - reachability data is always one-dimensional -->
+<!--=> its generated using metrics -->
+- using the reachability data the clusters can be visualized
+- DBSCAN clustering can be extracted from OPTICS data
+- ordering can be used to connect points in the cluster
+
+```{r, echo=FALSE}
+set.seed(188)
+n <- 50
+x <- cbind(
+  x = runif(5, 0, 2) + rnorm(n, sd = 0.05),
+  y = runif(5, 0, 2) + rnorm(n, sd = 0.05)
+)
+x <- t(x)
+d <- c(x, .6, .75, .8, 1.3, 0, 1.6, .6, 1, .9, .9, .5, 1.5, 1, .4, .1, .6);
+x <- matrix(d, nrow=2);
+```
+
+```{r, fig.asp=.55, echo=FALSE}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+par(ann=FALSE)
+clustering::reachability_plot(clustering::OPTICS(x, .1, 7), .074)
+title(main = "Reachability Plot", xlab = "")
+
+plot_clustered_2d_data(extract_DBSCAN_clustering(clustering::OPTICS(x, .1, 7)), connect_to_predecessor=TRUE, point_size = .5)
+title(main = "Extracted DBSCAN", xlab = "")
+```
+
+<!-- 5. Besonderen Funktionen -->
+<!-- (Hierarchical Clustering: Dendrogramm, Voronoi-Zellen bei K-means, Optics die extra-Graphen) -->
 
 # Real Data Example
 ##

@@ -80,7 +80,7 @@ The figure to the right shows data that has been clustered using the DBSCAN algo
 ```{r, echo=FALSE, fig.asp=.55, warning=FALSE}
 par(mfrow=c(1,2), mar=c(3,3,2,1))
 
-plot(0,0, pch=1, cex=15, main="Example of a Neighborhood")
+plot(0,0, pch=1, cex=15, main="Example: Neighborhood")
 #points(0,0, pch=1, cex=30)
 segments(0, 0, .5, 0, lwd=2)
 text(.225, 0.075, "epsilon", cex=.75)
@@ -115,11 +115,12 @@ title(main="DBSCAN (eps=.3, minPts=7)")
 ## OPTICS
 
 The OPTICS algorithm does use the same method of determining neighborhoods of points, and, additionally, introduces the concepts of core distance and reachability distance. The core distance is the distance from the center point to the `minPts`th point and is therefore only defined for points with a neighborhood satisfying the minimum points criterion. The left figure shows an example of a core distance for `minPts=4`, the right figure show an example of a reachability plot with the reachability being on the y-axis, the red line is an example of a threshold.
+Using the reachability and core distance information produced by the OPTICS algorithm, the DBSCAN clustering can be extracted.
 
 ```{r, echo=FALSE, fig.asp=.55, warning=FALSE}
 par(mfrow=c(1,2), mar=c(3,3,2,1))
 
-plot(0,0, pch=1, cex=15, main="Example of a Core-distance", cex.axis=.75)
+plot(0,0, pch=1, cex=15, main="Example: Core-distance", cex.axis=.75)
 #points(0,0, pch=1, cex=30)
 segments(0, 0, .5, 0, lwd=2)
 text(.225, 0.075, "epsilon", cex=.75)
