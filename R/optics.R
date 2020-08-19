@@ -42,10 +42,12 @@ OPTICS <- function (data, eps, minPts, extractDBSCAN=FALSE, distanceFunction = e
         if (reach_dist[neighbor] == UNDEFINED) {
           reach_dist[neighbor] <<- new_reach_dist;
           in_seeds[neighbor] <<- TRUE;
+          predecessor[neighbor] <<- p_idx;
         } else {
           if (new_reach_dist < reach_dist[neighbor]) {
             reach_dist[neighbor] <<- new_reach_dist;
             in_seeds[neighbor] <<- TRUE;
+            predecessor[neighbor] <<- p_idx;
           }
         }
       }
@@ -71,6 +73,8 @@ OPTICS <- function (data, eps, minPts, extractDBSCAN=FALSE, distanceFunction = e
   reach_dist <- rep(UNDEFINED, n);
   core_dist <- rep(UNDEFINED, n);
   order <- c();
+
+  predecessor <- rep(UNDEFINED, n);
 
   for (p_idx in seq(n)) {
     if (visited[p_idx] == FALSE) {
@@ -109,6 +113,7 @@ OPTICS <- function (data, eps, minPts, extractDBSCAN=FALSE, distanceFunction = e
   attr(data, "ordering") <- order;
   attr(data, "eps") <- eps;
   attr(data, "minPts") <- minPts;
+  attr(data, "predecessor") <- predecessor;
 
   if (extractDBSCAN) {
     data <- extract_DBSCAN_clustering(data);
@@ -189,30 +194,6 @@ cluster_by_reachability <- function (data, threshold) {
 
   return(data);
 }
-
-# this is currently not very helpful or pleasant to look at
-# ordered_plot <- function (data) {
-#   plot_clustered_2d_data(data);
-#
-#   NOISE <- -1;
-#
-#   n <- ncol(data);
-#   x <- data[1,];
-#   y <- data[2,];
-#   cluster <- attr(data, "cluster");
-#   order <- attr(data, "ordering");
-#   for (i in 2:n) {
-#     a <- order[i-1]
-#     b <- order[i]
-#     if (cluster[a] == NOISE) {
-#       i <- i + 1;
-#       next;
-#     }
-#     # if (cluster[a] != cluster[b]) next;
-#     segments(x[a], y[a], x[b], y[b], lwd=1, col=rgb(0,0,0,.5))
-#   }
-# }
-
 
 #' Extract DBSCAN Clustering
 #' @description Extract the DBSCAN clustering from data processed by the OPTICS algorithm according to the paper "OPTICS: Ordering Points To Identify the Clustering Structure".
