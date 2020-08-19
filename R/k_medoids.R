@@ -1,13 +1,13 @@
 #' dissimialrity
-#' 
+#'
 #' @description calculates all dissimilarities from a data point
-#' 
+#'
 #' @param data matrix; columns are vectors
 #' @param k integer; column of which the dissimilarities are calculated
-#' 
+#'
 #' @return vector of all dissimilarities
 #' @export
-#' 
+#'
 #' @examples
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 #' dissim(data, 3)
@@ -24,15 +24,15 @@ dissim <- function(data, k){
 }
 
 #' set closest medoid
-#' 
+#'
 #' @description assigns each vector to the closest medoid
-#' 
+#'
 #' @param data matrix; columns are vectors
 #' @param medoids vector; datapoints that are set as medoids
-#' 
+#'
 #' @return input data with attribute "cluster" assigning a cluster to every column-vector and "mindissims" assigning the dissimilarity to the medoid
 #' @export
-#' 
+#'
 #' @examples
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 #' medoids <- round(runif(3, 1, ncol(data)))
@@ -59,22 +59,22 @@ set_closest <- function(data, medoids){
 }
 
 #' k-medoids algorithm
-#' 
+#'
 #' @description Finds clusters in the input data using the k_medoids algorithm.
-#' 
+#'
 #' @param data matrix; columns are vectors
 #' @param k integer; number of clusters
-#' 
+#'
 #' @return input data with attribute "cluster" assigning a cluster to every column-vector.
 #' @export
-#' 
+#'
 #' @examples
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 #' k_medoids(data, 2)
 k_medoids <- function(data, k=2){
   stopifnot("data cannot be empty!" = length(data) > 0);
   stopifnot("data must be a matrix!" = is.matrix(data) == TRUE);
-  medoids <- round(runif(k, 1, ncol(data)))
+  medoids <- round(stats::runif(k, 1, ncol(data)))
   start <- medoids
   cluster <- set_closest(data, medoids)
   cost <- sum(attributes(cluster)[[3]])

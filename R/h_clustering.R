@@ -89,7 +89,7 @@ hierclust = function(d, method=c("single","complete","average","median"))
                           single   = min,
                           complete = max,
                           average  = mean,
-                          median  = median)
+                          median  = stats::median)
   Nrows = nrow(d)
   diag(d)=Inf
   n = -(1:Nrows)                       # for group membership
