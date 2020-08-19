@@ -74,6 +74,7 @@ generate_2d_cluster <- function (n, center=c(0,0)) {
 #' @param show_noise logical; toggle plotting of noise
 #' @param show_legend logical; toggle legend display
 #' @param hide_axis_text logical; toggle axis text
+#' @param connect_to_predecessor logical; toggle lines connecting points to their predecessor; this only works with data produced by the OPTICS algorithmdevto
 #'
 #' @export
 #'
@@ -81,7 +82,7 @@ generate_2d_cluster <- function (n, center=c(0,0)) {
 #' data <- matrix(c(1,1,2,1), nrow=2);
 #' attr(data, "cluster") <- c(1,2);
 #' plot_clustered_2d_data(data);
-plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_legend=FALSE, hide_axis_text=FALSE) {
+plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_legend=FALSE, hide_axis_text=FALSE, connect_to_predecessor=FALSE) {
   stopifnot("The passed data needs to have the \"cluster\" set" =  "cluster" %in% names(attributes(data)));
   stopifnot("Tha passed data is not two dimensional" = nrow(data) >= 2);
   if (nrow(data) > 2) {
@@ -106,10 +107,13 @@ plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_l
 
   col_gen <- get_color_generator();
 
+  x <- data[1,];
+  y <- data[2,];
+
   if (hide_axis_text) {
-    plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75, xaxt='n', yaxt='n');
+    plot(x, y, xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75, xaxt='n', yaxt='n');
   } else {
-    plot(data[1,], data[2,], xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75);
+    plot(x, y, xlab="x", ylab="y", pch=1, cex=point_size, cex.axis=.75);
   }
 
   legendlabels <- c()
@@ -123,10 +127,26 @@ plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_l
     legendcolors <- c("black")
   }
 
+  if (connect_to_predecessor) {
+    if (sum(c("predecessor", "ordering") %in% names(attributes(data))) == 2)  {
+      UNDEFINED <- Inf;
+      predecessor <- attr(data,"predecessor");
+      order <-attr(data, "ordering");
+      for (i in 1:n) {
+        b <- order[i]
+        a <- predecessor[b]
+        if (a == UNDEFINED) next;
+        segments(x[a], y[a], x[b], y[b], lwd=1, col=rgb(0,0,0,.75))
+      }
+    } else {
+      warning("connect_to_predecessor is set, but the given data is not the result of a call to OPTICS. Skipping this option.");
+    }
+  }
+
   for (i in clusters) {
     clusterIdx <- attr(data, "cluster") == i;
-    clusterX <- data[1, clusterIdx];
-    clusterY <- data[2, clusterIdx];
+    clusterX <- x[clusterIdx];
+    clusterY <- y[clusterIdx];
 
     cur_col <- col_gen();
 

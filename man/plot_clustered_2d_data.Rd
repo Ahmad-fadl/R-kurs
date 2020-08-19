@@ -9,7 +9,8 @@ plot_clustered_2d_data(
   point_size = 0.75,
   show_noise = TRUE,
   show_legend = FALSE,
-  hide_axis_text = FALSE
+  hide_axis_text = FALSE,
+  connect_to_predecessor = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ plot_clustered_2d_data(
 \item{show_legend}{logical; toggle legend display}
 
 \item{hide_axis_text}{logical; toggle axis text}
+
+\item{connect_to_predecessor}{logical; toggle lines connecting points to their predecessor; this only works with data produced by the OPTICS algorithmdevto}
 }
 \description{
 Plot Clustered 2D Data
