@@ -7,13 +7,13 @@
 #' @export
 #'
 #' @examples
-#' generate_training_data(10)
+#' generate_nested_2d_training_data(10)
 generate_nested_2d_training_data <- function (n) {
-  innerOrOuter <- c()
-  #' Generate a Single Training Vector
-  #' @description This function generates a single training vector as specified in "Beispiel 10.23" in reference "Richter19"
-  #' @return returns a single training vector
-  #' @references Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
+  innerOrOuter <- c();
+  # #' Generate a Single Training Vector
+  # #' @description This function generates a single training vector as specified in "Beispiel 10.23" in reference "Richter19"
+  # #' @return returns a single training vector
+  # #' @references Richter, S. (2019). Statistisches und maschinelles Lernen. Springer Spektrum.
   # #' @example generate_training_vector()
   generate_training_vector <- function () {
     R <- function(z) {
@@ -75,11 +75,10 @@ generate_2d_cluster <- function (n, center=c(0,0)) {
 #' @param show_legend logical; toggle legend display
 #' @param hide_axis_text logical; toggle axis text
 #'
-#' @return
 #' @export
 #'
 #' @examples
-#' data <- matrix(c(1,1,2,1));
+#' data <- matrix(c(1,1,2,1), nrow=2);
 #' attr(data, "cluster") <- c(1,2);
 #' plot_clustered_2d_data(data);
 plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_legend=FALSE, hide_axis_text=FALSE) {

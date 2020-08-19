@@ -23,14 +23,11 @@ plot_clustered_2d_data(
 
 \item{hide_axis_text}{logical; toggle axis text}
 }
-\value{
-
-}
 \description{
 Plot Clustered 2D Data
 }
 \examples{
-data <- matrix(c(1,1,2,1));
+data <- matrix(c(1,1,2,1), nrow=2);
 attr(data, "cluster") <- c(1,2);
 plot_clustered_2d_data(data);
 }

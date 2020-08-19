@@ -63,13 +63,14 @@ OPTICS <- function (data, eps, minPts, extractDBSCAN=FALSE, distanceFunction = e
 
   UNDEFINED <- Inf;
 
+  n <- ncol(data);
+
   attr(data, "reachability-distance") <- rep(UNDEFINED, n);
 
-  n <- ncol(data)
-  visited <- logical(n)
-  reach_dist <- rep(UNDEFINED, n)
-  core_dist <- rep(UNDEFINED, n)
-  order <- c()
+  visited <- logical(n);
+  reach_dist <- rep(UNDEFINED, n);
+  core_dist <- rep(UNDEFINED, n);
+  order <- c();
 
   for (p_idx in seq(n)) {
     if (visited[p_idx] == FALSE) {
@@ -123,7 +124,6 @@ OPTICS <- function (data, eps, minPts, extractDBSCAN=FALSE, distanceFunction = e
 #' @param data matrix; data has to be the result of a previous run of the OPTICS algorithm.
 #' @param threshold numeric; show the given threshold in the plot, optinal.
 #'
-#' @return
 #' @export
 #'
 #' @examples
@@ -236,7 +236,7 @@ extract_DBSCAN_clustering <- function (data, eps_prime=NULL) {
       "ordering",
       "eps",
       "minPts"
-    ) %in% names(attributes(opt))
+    ) %in% names(attributes(data))
   ))
 
 
