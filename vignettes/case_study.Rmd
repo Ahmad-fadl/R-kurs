@@ -101,6 +101,16 @@ x <- matrix(d, nrow=2);
 clustering::plot_clustered_2d_data(DBSCAN(x, .1, 7));
 title(main="DBSCAN (eps=.1, minPts=7)")
 ```
+When looking at the cluster drawn in orange, we see an extra point which is considered noise close to the clustered group of points. When slightly increasing the $\varepsilon$-radius, we see that this point is now considered part of the orange cluster, as seen in the left figure below. Choosing an $\varepsilon$-radius that is too large, on the other hand, the clusters start to expand towards far-off points, as seen on the right-hand side.
+
+```{r, echo=FALSE, fig.asp=.55, warning=FALSE}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+clustering::plot_clustered_2d_data(DBSCAN(x, .15, 7));
+title(main="DBSCAN (eps=.15, minPts=7)")
+clustering::plot_clustered_2d_data(DBSCAN(x, .3, 7));
+title(main="DBSCAN (eps=.3, minPts=7)")
+```
 
 ## OPTICS
 
