@@ -24,9 +24,8 @@ Authors@R:
                email = "Fadl@stud.uni-heidelberg.de",
                comment = c(ORCID = "YOUR-ORCID-ID"))
        )
-Description: This package implements a variety of clustering and algorithms as part of the R-Course during the summer term of 2020.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+Description: This package implements a variety of clustering algorithms and some related utility as part of the R-Course during the summer term of 2020.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
