@@ -71,7 +71,7 @@ print(X)
 ```
 
 
-# Clustering Example
+# Clustering Algorithm Example
 
 ## Spectral Clustering
 
@@ -104,20 +104,44 @@ title("Resulting Clustering")
 
 
 # The Package
-##
-3. Paket vorstellen,
-Was erwarten die Clustering Funktionen für Argumente
-Was geben die für Ausgaben
-Liste aller Funktionen
-Darauf eingehen, das die alle ungefähr dieselben Argumente brauchen
+
+<!-- 3. Paket vorstellen, -->
+<!-- Was erwarten die Clustering Funktionen für Argumente -->
+<!-- Was geben die für Ausgaben -->
+<!-- Liste aller Funktionen -->
+<!-- Darauf eingehen, das die alle ungefähr dieselben Argumente brauchen -->
+
+## Package Overview
+
+- all algorithms expect the input data as their first argument
+- density-based algorithms (DBSCAN, OPTICS) get passed $\varepsilon$ and minimum-points values
+- spectral clustering may be passed a dimension to project into
+- algorithms working with distances may have the function for distance calculation customized
+
+<!-- !! TODO: add your algorithms signature !!-->
+
+```{r, eval=FALSE}
+DBSCAN(data, eps, minPts, distanceFunction = euclidean_distance)
+OPTICS(data, eps, minPts, distanceFunction = euclidean_distance, threshold = NULL)
+spectral_clustering(data, k = 1, mercer_kernel = gaussian_kernel_with_fixed_gamma(15), clustering = NULL, ...)
+```
 
 
 # Live Demonstration
-##
-4. Live-Beispiele
-nur mit der Standardfunktionalität
-(zu 4.: Fehlerausgaben funktionieren usw)
-(zu 4.: Dokumentation)
+
+<!-- 4. Live-Beispiele -->
+<!-- nur mit der Standardfunktionalität -->
+<!-- (zu 4.: Fehlerausgaben funktionieren usw) -->
+<!-- (zu 4.: Dokumentation) -->
+
+# DBSCAN
+# OPTICS
+# Spectral Clustering
+
+<!-- TODO: everyones algorithm -->
+<!-- probably no slides necessary as this is supposed to be a live demonstration -->
+<!--  > maybe just empty title slides -->
+
 
 
 # Special Functionality
