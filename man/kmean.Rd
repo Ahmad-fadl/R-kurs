@@ -7,9 +7,11 @@
 kmean(mydata, k = 3, distanceFunction = euclidean_distance_squared)
 }
 \arguments{
+\item{mydata}{matrix; matrix columns are (mathematical) vectors. Input data.}
+
 \item{k}{double; number of cluster}
 
-\item{data}{matrix; matrix columns are (mathematical) vectors. Input data.}
+\item{distanceFunction}{the function we use to calculate distances}
 }
 \value{
 matrix; with k columns with additionall attribuets 1 cluster : vector of values between 1 to k has length ncol(mydata).2 centers  : matrix has k col in each col is saved the center of each cluster.

@@ -7,9 +7,9 @@
 m(mydata, k)
 }
 \arguments{
-\item{k}{double; number of cluster}
+\item{mydata}{matrix; matrix columns are (mathematical) vectors. Input data.}
 
-\item{data}{matrix; matrix columns are (mathematical) vectors. Input data.}
+\item{k}{double; number of cluster}
 }
 \value{
 matrix; with k columns .
