@@ -130,6 +130,7 @@ title("Resulting Clustering")
 ## Package Overview
 
 - all algorithms expect the input data as their first argument
+- k-means and k-medoids get passed the number of clusters k
 - density-based algorithms (DBSCAN, OPTICS) get passed $\varepsilon$ and minimum-points values
 - spectral clustering may be passed a dimension to project into
 - algorithms working with distances may have the function for distance calculation customized
@@ -137,6 +138,7 @@ title("Resulting Clustering")
 <!-- !! TODO: add your algorithms signature !!-->
 
 ```{r, eval=FALSE}
+k_medoids(data, k = 2)
 DBSCAN(data, eps, minPts, distanceFunction = euclidean_distance)
 OPTICS(data, eps, minPts, distanceFunction = euclidean_distance)
 spectral_clustering(data, k = 1, mercer_kernel)
