@@ -73,6 +73,24 @@ print(X)
 
 # Clustering Algorithm Example
 
+## K-Medoids Clustering
+
+- used to partition a data set into k clusters
+- medoid = point with minimum dissimilarities to other points in cluster
+- swaps medoids to reach minimal cost
+
+```{r, fig.asp=.35, cache=TRUE, echo=FALSE}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+X <- matrix(c(8,7,3,7,4,9,9,6,8,5,5,8,7,3,8,4,7,5,4,5), nrow = 2)
+plot(X[1,], X[2,], xlab="", ylab="")
+title("Initial Data")
+
+data <- clustering::k_medoids(X, 2)
+plot_clustered_2d_data(data)
+title("Resulting Clustering (k = 2)")
+```
+
 ## Spectral Clustering
 
 - algorithm does generated projections of the vectors
@@ -99,8 +117,6 @@ cData <- clustering::spectral_clustering(X, k=2, mercer_kernel=gaussian_kernel_w
 plot_clustered_2d_data(cData)
 title("Resulting Clustering")
 ```
-
-## TODO: another clustering example
 
 
 # The Package
