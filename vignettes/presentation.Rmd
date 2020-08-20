@@ -115,9 +115,9 @@ title("Resulting Clustering (k = 2)")
 
 ## Spectral Clustering
 
-- algorithm does generated projections of input vectors
+- generates projections of input vectors
 - does not directly produce a clustering
-- by running another algorithm on the projections clusters can be found
+- by running another algorithm on the projections clusters can be identified
 
 <!-- Note: - colors are not visible to the algorithm -> only for visualization purposes -->
 <!--       - k-medoids algorithm used to find clusters -->
