@@ -67,7 +67,13 @@ plot2d(X_projections, title="Projections for gamma = 30",xlabel="", ylabel="")
 
 The perfect projections alone do not provide a direct clustering themselves, but using one of the other clustering algorithms the spectral clusters can be easily extracted.
 
-sample figure here :)
+```{r, fig.asp=.55, echo=FALSE}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+cData <- clustering::spectral_clustering(X, k=2, mercer_kernel=gaussian_kernel_with_fixed_gamma(30), clustering=k_medoids, 2);
+plot_clustered_2d_data(cData)
+title(main="Clustered Using k-Medoids")
+```
 
 
 # Proximity-based Clustering Algorithms
@@ -196,3 +202,41 @@ plot(data_clust_avg)
 clusters_iris <- hierclust(distance(iris[, 3:4]))
 plot(clusters_iris)
 ```
+
+
+# Comparing Clustering Algorithms
+
+Not all clustering algorithms produce sensible clusters on every constellation of data. When looking at the nested clusters shown in the Spectral Clustering section for example, we can see the density based algorithm producing poor results. By experimenting with the DBSCAN parameters, the correct clustering can be found, but this is of course unnecessary, since Spectral Clustering in combination with another algorithm, e.g. k-Medoids as above, can reliably extract the nested clusters.
+
+
+```{r, fig.asp=.35, echo=FALSE}
+par(mfrow=c(1,3), mar=c(2, 2.25, 2, .5))
+
+plot_clustered_2d_data(DBSCAN(X, .3, 20))
+title(main="DBSCAN (eps=.5, minPts=20)")
+
+plot_clustered_2d_data(DBSCAN(X, .5, 50))
+title(main="DBSCAN (eps=.5, minPts=50)")
+
+plot_clustered_2d_data(cData)
+title(main="Spectral Clustering (k-Medoids)")
+
+```
+
+# ```{r, fig.asp=.35, echo=FALSE}
+# par(mfrow=c(1,3), mar=c(2, 2.25, 2, .5))
+# 
+# plot_clustered_2d_data(spectral_clustering(x, k=2, mercer_kernel=gaussian_kernel_with_fixed_gamma(30), clustering=k_medoids, 4))
+# title(main="SC + kMed")
+# 
+# 
+# attr(X, "cluster") <- attr(extract_DBSCAN_clustering(OPTICS(X_projections, .1, 10)), "cluster")
+# plot_clustered_2d_data(X)
+# 
+# plot(X_projections[1,], X_projections[2,])
+# plot_clustered_2d_data()
+# title(main="DBSCAN (eps=.5, minPts=50)")
+# 
+# clustering::plot_clustered_2d_data(DBSCAN(x, .1, 7));
+# title(main="DBSCAN (eps=.1, minPts=7)")
+# ```
