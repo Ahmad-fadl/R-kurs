@@ -196,7 +196,28 @@ title(main = "Extracted DBSCAN", xlab = "")
 
 <!-- 5. Besonderen Funktionen -->
 <!-- (Hierarchical Clustering: Dendrogramm, Voronoi-Zellen bei K-means, Optics die extra-Graphen) -->
+# Hierarchical Clustering
 
-# Real Data Example
-##
+- It is Agglomerative clustering.
+- It is a bottom-up manner grouping of objects into clusters.
+- Output is a tree and can be plot as dendogram.
+- In this clustering algorithm, each object is initially considered as a single-element cluster (leaf).
+- At each step of the algorithm, the two clusters that are the most similar are combined into a new bigger cluster (nodes).
+- This procedure is iterated until all points are member of just one single big cluster (root).
+- The result is a tree which can be plotted as a dendrogram.
+- The distance metric: single, complete, average, median cab used to to group objects into clusters.
+
+## Real Data Example: data(USArrests and Iris) with different cluster agglomeration methods
+
+```{r}
+data <- distance(USArrests)
+data_clust <- hierclust(data, method="single")
+data_clust_complete <- hierclust(data, method = "complete")
+data_clust_avg <- hierclust(data, method = "average")
+plot(data_clust)
+plot(data_clust_complete)
+plot(data_clust_avg)
+clusters_iris <- hierclust(distance(iris[, 3:4]))
+plot(clusters_iris)
+```
 6. Beispiel mit richtigen Daten
