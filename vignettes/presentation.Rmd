@@ -90,6 +90,28 @@ data <- clustering::k_medoids(X, 2)
 plot_clustered_2d_data(data)
 title("Resulting Clustering (k = 2)")
 ```
+## K-Means Clustering
+-is a method of groubing data
+- used to partition a data set into k clusters
+- each observation belongs to the cluster with the nearest mean
+-Algorithm :
+- 1 chose k random means for our 4 clusters.
+- 2 assign every opservation to the cluster with the nearest mean
+- 3 calculate the new mean of every cluster
+- 4 if new means = old means then we are done we have our      clusters, otherwise go back to 2.
+
+```{r, fig.asp=.35, cache=TRUE, echo=FALSE}
+par(mfrow=c(1,2), mar=c(3,3,2,1))
+
+x = rep(1:10)
+x= matrix(sample(x,10),nrow = 2)
+plot(X[1,], X[2,], xlab="", ylab="")
+title("Initial Data")
+
+mydata = clustering::kmean(X, 2)
+plot_clustered_2d_data(mydata)
+title("Resulting Clustering (k = 2)")
+```
 
 ## Spectral Clustering
 
@@ -139,6 +161,7 @@ title("Resulting Clustering")
 
 ```{r, eval=FALSE}
 k_medoids(data, k = 2)
+kmean(data, k = 2,distanceFunction = euclidean_distance_squared)
 DBSCAN(data, eps, minPts, distanceFunction = euclidean_distance)
 OPTICS(data, eps, minPts, distanceFunction = euclidean_distance)
 spectral_clustering(data, k = 1, mercer_kernel)

@@ -25,7 +25,7 @@ m <- function(mydata,k){
 #'
 #' @param k double; number of cluster
 #'
-#'
+#' @param distanceFunction the function we use to calculate distances
 #'
 #' @return matrix; with k columns with additionall attribuets 1 cluster : vector of values between 1 to k has length ncol(mydata).2 centers  : matrix has k col in each col is saved the center of each cluster.
 #' @export
