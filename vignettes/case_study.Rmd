@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, echo=FALSE}
 library(clustering)
 ```
 
@@ -224,20 +224,20 @@ title(main="Spectral Clustering (k-Medoids)")
 
 ```
 
-# ```{r, fig.asp=.35, echo=FALSE}
-# par(mfrow=c(1,3), mar=c(2, 2.25, 2, .5))
-# 
-# plot_clustered_2d_data(spectral_clustering(x, k=2, mercer_kernel=gaussian_kernel_with_fixed_gamma(30), clustering=k_medoids, 4))
-# title(main="SC + kMed")
-# 
-# 
-# attr(X, "cluster") <- attr(extract_DBSCAN_clustering(OPTICS(X_projections, .1, 10)), "cluster")
-# plot_clustered_2d_data(X)
-# 
-# plot(X_projections[1,], X_projections[2,])
-# plot_clustered_2d_data()
-# title(main="DBSCAN (eps=.5, minPts=50)")
-# 
-# clustering::plot_clustered_2d_data(DBSCAN(x, .1, 7));
-# title(main="DBSCAN (eps=.1, minPts=7)")
-# ```
+<!-- # ```{r, fig.asp=.35, echo=FALSE} -->
+<!-- # par(mfrow=c(1,3), mar=c(2, 2.25, 2, .5)) -->
+<!-- # -->
+<!-- # plot_clustered_2d_data(spectral_clustering(x, k=2, mercer_kernel=gaussian_kernel_with_fixed_gamma(30), clustering=k_medoids, 4)) -->
+<!-- # title(main="SC + kMed") -->
+<!-- # -->
+<!-- # -->
+<!-- # attr(X, "cluster") <- attr(extract_DBSCAN_clustering(OPTICS(X_projections, .1, 10)), "cluster") -->
+<!-- # plot_clustered_2d_data(X) -->
+<!-- # -->
+<!-- # plot(X_projections[1,], X_projections[2,]) -->
+<!-- # plot_clustered_2d_data() -->
+<!-- # title(main="DBSCAN (eps=.5, minPts=50)") -->
+<!-- # -->
+<!-- # clustering::plot_clustered_2d_data(DBSCAN(x, .1, 7)); -->
+<!-- # title(main="DBSCAN (eps=.1, minPts=7)") -->
+<!-- # ``` -->
