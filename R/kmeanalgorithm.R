@@ -1,6 +1,5 @@
-
-#' @description chose random centers for cluster.
-#'   it will only be used internely in kmean clustering algorithm.
+#' Chose random centerns for k clusters
+#' @description chose random centers for cluster   it will only be used internely in kmean clustering algorithm.
 #' @param data matrix; matrix columns are (mathematical) vectors. Input data.
 #'
 #' @param k double; number of cluster
@@ -20,7 +19,7 @@ m <- function(mydata,k){
   return(z)
 }
 
-
+#' K-means algorithm
 #' @description kmean algorithm see Richter19 9.10
 #' @param data matrix; matrix columns are (mathematical) vectors. Input data.
 #'
@@ -28,9 +27,7 @@ m <- function(mydata,k){
 #'
 #'
 #'
-#' @return matrix; with k columns with additionall attribuets
-#'               1 cluster : vector of values between 1 to k has length ncol(mydata) .
-#'               2 centers  : matrix has k col in each col is saved the center of each cluster.
+#' @return matrix; with k columns with additionall attribuets 1 cluster : vector of values between 1 to k has length ncol(mydata).2 centers  : matrix has k col in each col is saved the center of each cluster.
 #' @export
 #'
 #' @examples
