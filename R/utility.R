@@ -106,6 +106,8 @@ plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_l
 
   col_gen <- get_color_generator();
 
+  n <- ncol(data);
+
   x <- data[1,];
   y <- data[2,];
 
@@ -135,7 +137,7 @@ plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_l
         b <- order[i]
         a <- predecessor[b]
         if (a == UNDEFINED) next;
-        segments(x[a], y[a], x[b], y[b], lwd=1, col=rgb(0,0,0,.75))
+        graphics::segments(x[a], y[a], x[b], y[b], lwd=1, col=grDevices::rgb(0,0,0,.75))
       }
     } else {
       warning("connect_to_predecessor is set, but the given data is not the result of a call to OPTICS. Skipping this option.");
