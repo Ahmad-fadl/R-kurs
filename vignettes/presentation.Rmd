@@ -94,11 +94,7 @@ title("Resulting Clustering (k = 2)")
 -is a method of groubing data
 - used to partition a data set into k clusters
 - each observation belongs to the cluster with the nearest mean
--Algorithm :
-- 1 chose k random means for our 4 clusters.
-- 2 assign every opservation to the cluster with the nearest mean
-- 3 calculate the new mean of every cluster
-- 4 if new means = old means then we are done we have our      clusters, otherwise go back to 2.
+
 
 ```{r, fig.asp=.35, cache=TRUE, echo=FALSE}
 par(mfrow=c(1,2), mar=c(3,3,2,1))

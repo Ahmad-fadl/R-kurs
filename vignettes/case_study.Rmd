@@ -169,6 +169,11 @@ suppressWarnings(clustering::plot_clustered_2d_data(k_medoids(X, 3), show_noise 
 # K-means Algorithm
 
 The k-means algorithm is a clustering way tha used standards mathematics distances to groub data. It is used to partition a data set into k clusters using means. The k-means algorithm requires the user to specify the number of clusters k.
+-Algorithm :
+- 1 chose k random means for our 4 clusters.
+- 2 assign every opservation to the cluster with the nearest mean
+- 3 calculate the new mean of every cluster
+- 4 if new means = old means then we are done we have ourclusters, otherwise go back to 2.
 
 ## Example data with 2 or 3 clusters
 
