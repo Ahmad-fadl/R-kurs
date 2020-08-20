@@ -1,5 +1,4 @@
 *.html
-*.R
 *_cache/
 *-tikzDictionary
 *.aux
