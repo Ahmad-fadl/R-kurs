@@ -84,7 +84,6 @@ generate_2d_cluster <- function (n, center=c(0,0)) {
 #' plot_clustered_2d_data(data);
 plot_clustered_2d_data <- function(data, point_size=.75, show_noise=TRUE, show_legend=FALSE, hide_axis_text=FALSE, connect_to_predecessor=FALSE) {
   stopifnot("The passed data needs to have the \"cluster\" set" =  "cluster" %in% names(attributes(data)));
-  stopifnot("Tha passed data is not two dimensional" = nrow(data) >= 2);
   if (nrow(data) > 2) {
     warning("The passed data has more than two dimensions. Only the first two dimensions are used for plotting!");
   }
