@@ -223,7 +223,7 @@ title(main = "Extracted DBSCAN", xlab = "")
 - At each step of the algorithm, the two clusters that are the most similar are combined into a new bigger cluster (nodes).
 - This procedure is iterated until all points are member of just one single big cluster (root).
 - The result is a tree which can be plotted as a dendrogram.
-- The distance metric: single, complete, average, median cab used to to group objects into clusters.
+- The distance metric: single, complete, average, median can used to to group objects into clusters.
 
 ## Real Data Example: data(USArrests and Iris) with different cluster agglomeration methods
 
