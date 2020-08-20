@@ -120,7 +120,8 @@ gaussian_kernel_with_fixed_gamma <- function(gamma) {
 infinity_norm <- function(x) {
   return(max(sapply(x, abs)));
 }
-maximum_norm <- infinity_norm
+# packages dont export variables
+# maximum_norm <- infinity_norm
 
 #' Calculate the 1-Norm of a Vector.
 #' @description \code{one_norm} calculates the Euclidean norm of a vector. Also known as Taxicab norm or Manhattan norm.
@@ -137,8 +138,9 @@ maximum_norm <- infinity_norm
 one_norm <- function(x) {
   return(sum(sapply(x, abs)));
 }
-taxicab_norm <- one_norm
-manhattan_norm <- one_norm
+# packages dont export variables
+# taxicab_norm <- one_norm
+# manhattan_norm <- one_norm
 
 #' Calculate the p-Norm of a Vector.
 #' @description \code{p_norm} calculates the p-norm of a vector for a given \code{p}.

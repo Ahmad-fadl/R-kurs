@@ -50,8 +50,8 @@ print(X)
 
 ```{r, eval=FALSE}
 euclidean_norm(vector)
-infinity_norm(vector), maximum_norm(vector) # different names for the same norm
-one_norm(vector), taxicab_norm(vector), manhattan_norm(vector) # as above
+infinity_norm(vector)
+one_norm(vector)
 p_norm(vector, p)
 euclidean_distance(vector1, vector2)
 gaussian_kernel(vector1, vector2, gamma = 7.5)
