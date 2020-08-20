@@ -20,12 +20,13 @@ library(clustering)
 ```
 
 # Introduction
-
+In this project, we implement various clustering algorithms such as K-Means, K-Medoids, Hierarchical Clustering, Spectral clustering, and density based clustering algorithms such as DBSCAN, and OPTICS, and finally put them together to form a R package.
 
 ## The Goal of Clustering
 
 - given a set of input data
-- try to identify related vectors
+- imput data is grouped together to form clusters where similar objects are grouped together
+- try to identify related vectors based on distance metric
 - groups of related vectors are called a ***cluster***
 
 ```{r, echo=FALSE, fig.asp=.55, warning=FALSE}
@@ -152,6 +153,7 @@ title("Resulting Clustering")
 - density-based algorithms (DBSCAN, OPTICS) get passed $\varepsilon$ and minimum-points values
 - spectral clustering may be passed a dimension to project into
 - algorithms working with distances may be passed a custom metric
+- hierarchical clustering method takes input data as matrix and distance linkage method as input and returns clusters, height, order, labels.
 
 <!-- !! TODO: add your algorithms signature !!-->
 
@@ -161,6 +163,7 @@ kmean(data, k = 2,distanceFunction = euclidean_distance_squared)
 DBSCAN(data, eps, minPts, distanceFunction = euclidean_distance)
 OPTICS(data, eps, minPts, distanceFunction = euclidean_distance)
 spectral_clustering(data, k = 1, mercer_kernel)
+hierclust(data, method = "single")
 ```
 
 
