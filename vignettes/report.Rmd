@@ -15,6 +15,24 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, include=FALSE}
-library(clustering)
-```
+
+# The Clustering Project
+<!-- – Beschreibt kurz euer Projekt -->
+
+
+# Tools and Techniques
+<!-- – Beschreibt kurz welche Werkzeuge aus der Vorlesung ihr verwendet habt (S3, Tidyverse, MetaProgrammierung, ...) -->
+
+# Orginization
+<!-- – Beschreibt kurz die grobe Organisation des Teams -->
+
+
+<!-- #### These are the individual Sections, everyone has to do these themselves! #### -->
+
+# My Contribution
+<!-- – Beschreibe kurz deine Beteiligung am Projekt -->
+
+# Personal Comments and Thoughts
+<!-- – Ggf weitere Bemerkung: War die Projektarbeit motivierend/frustrierend? Hat arbeiten im Team -->
+<!-- gut funktioniert? ... -->
+
