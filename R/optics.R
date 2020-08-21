@@ -149,8 +149,10 @@ reachability_plot <- function (data, threshold=NULL) {
     ) %in% names(attributes(data))
   ))
 
-  stopifnot("threshold has to be numeric" = is.numeric(threshold))
-  stopifnot("threshold has to be positive" = threshold > 0)
+  if (!missing(threshold)){
+    stopifnot("threshold has to be numeric" = is.numeric(threshold))
+    stopifnot("threshold has to be positive" = threshold > 0)
+  }
 
 
   n <- ncol(data);

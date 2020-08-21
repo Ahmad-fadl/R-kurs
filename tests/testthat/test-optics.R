@@ -48,6 +48,15 @@ test_that("extracted DBSCAN equal to actual DBSCAN", {
   expect_identical(dbscan_cluster, optics_cluster);
 })
 
+test_that("direct extracton of dbscan is identical to sequential extraction", {
+  expect_identical(extracted_DBSCAN, OPTICS(x, .1, 7, extractDBSCAN = TRUE))
+})
+
+test_that("reachability_plot runs without issue when given valid input", {
+  # expects the function to run without error
+  expect_error(reachability_plot(extracted_DBSCAN), NA)
+  expect_error(reachability_plot(extracted_DBSCAN, .3), NA)
+})
 
 test_that("reachability_plot handles faulty input correctly", {
   expect_error(reachability_plot(1:10))
@@ -79,4 +88,5 @@ test_that("extract_DBSCAN_clustering handles faulty input correctly", {
   expect_error(extract_DBSCAN_clustering(optics_data, "Zahl"))
   expect_error(extract_DBSCAN_clustering(optics_data, 0))
   expect_error(extract_DBSCAN_clustering(optics_data, -1))
+  expect_error(extract_DBSCAN_clustering(optics_data, 10))
 })
