@@ -2,8 +2,7 @@
 % Please edit documentation in R/h_clustering.R
 \name{hierclust}
 \alias{hierclust}
-\title{Hierarchical clustering implementation. It can bee used like original hclust(d, method).
-Hierarchical Clustering over a Matrix's Column-Vectors.}
+\title{Hierarchical Clustering over a Matrix's Column-Vectors.}
 \usage{
 hierclust(d, method = c("single", "complete", "average", "median"))
 }
@@ -17,6 +16,9 @@ the list structure object(labels, call, method, order, height, merge, dist.metho
 }
 \description{
 Performs the agglomerative hierarchical clustering algorithm describe in "Definition 10.3.2" in reference James19
+}
+\details{
+Hierarchical clustering implementation. It can bee used like original hclust(d, method).
 }
 \examples{
 data <- distance(USArrests)

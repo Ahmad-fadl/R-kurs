@@ -2,11 +2,7 @@
 % Please edit documentation in R/h_clustering.R
 \name{distance}
 \alias{distance}
-\title{Hierarchical Clustering Implementation
-Distance function to compute a full Euclidean distance matrix for
-the input matrix x to measure the dissimilarities. The output\link{i,j} gives
-the Euclidean distance between rows x\link{i,} and x\link{j,}.
-dissimialrity}
+\title{Hierarchical Clustering Implementation}
 \usage{
 distance(x)
 }
@@ -18,6 +14,12 @@ vector of all dissimilarities
 }
 \description{
 calculates all dissimilarities from a data point
+}
+\details{
+Distance function to compute a full Euclidean distance matrix for
+the input matrix x to measure the dissimilarities. The output\code{[i,j]} gives
+the Euclidean distance between rows \code{x[i,]} and \code{x[j,]}.
+dissimilarity.
 }
 \examples{
 data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)

@@ -1,8 +1,8 @@
-#' Hierarchical Clustering Implementation
-#' Distance function to compute a full Euclidean distance matrix for
-#' the input matrix x to measure the dissimilarities. The output[i,j] gives
-#' the Euclidean distance between rows x[i,] and x[j,].
-#' dissimialrity
+#' @title Hierarchical Clustering Implementation
+#' @details  Distance function to compute a full Euclidean distance matrix for
+#' the input matrix x to measure the dissimilarities. The output\code{[i,j]} gives
+#' the Euclidean distance between rows \code{x[i,]} and \code{x[j,]}.
+#' dissimilarity.
 #'
 #' @description calculates all dissimilarities from a data point
 #'
@@ -21,7 +21,7 @@ distance = function(x)
   sqrt(abs(u + t(u) - 2 * x %*% t(x)))
 }
 
-#' Hieraerchical clusters order
+#' @title Hieraerchical clusters order
 #'
 #' @description  The function returns a vector giving the permutation of the original
 # observations suitable for plotting, in the sense that a cluster plot using this ordering and matrix
@@ -64,8 +64,8 @@ hclust_order = function(mat)
   -hclust_order
 }
 
-#' Hierarchical clustering implementation. It can bee used like original hclust(d, method).
-#' Hierarchical Clustering over a Matrix's Column-Vectors.
+#' @details Hierarchical clustering implementation. It can bee used like original hclust(d, method).
+#' @title Hierarchical Clustering over a Matrix's Column-Vectors.
 #'
 #' @description Performs the agglomerative hierarchical clustering algorithm describe in "Definition 10.3.2" in reference James19
 #' @references Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani. (2013). An Introduction to Statistical Learning with Applications in R.
