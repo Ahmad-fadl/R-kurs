@@ -1,0 +1,20 @@
+---
+title: "13 - Clustering: Report"
+output: pdf_document
+# output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{report}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include=FALSE}
+library(clustering)
+```
