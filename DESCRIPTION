@@ -1,6 +1,6 @@
 Package: clustering
 Title: R-Course Project 13: Clustering
-Version: 0.0.0.9000
+Version: 1.0.0.0000
 Authors@R: 
     c(
       person(  given = "Mitodru",
