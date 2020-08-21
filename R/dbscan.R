@@ -15,11 +15,18 @@
 #' DBSCAN(data, .2, 1)
 DBSCAN <- function (data, eps, minPts, distanceFunction=euclidean_distance) {
   stopifnot("data cannot be empty!" = length(data) > 0);
-  stopifnot( "data has to be a matrix. columns are vectors." = is.matrix(data));
-  stopifnot( "eps has to be a positive number" = eps > 0);
-  stopifnot( "minPts has to be a positive integer." = as.integer(minPts) > 0);
+  stopifnot("data has to be a matrix. columns are vectors." = is.matrix(data));
+
+  stopifnot("eps has to be numeric" = is.numeric(eps));
+  stopifnot("eps has to be a positive number" = eps > 0);
+  stopifnot("minPts has to be numeric" = is.numeric(minPts));
 
   n <- ncol(data);
+  minPts <- as.integer(minPts);
+
+  stopifnot("minPts has to be a positive integer" = minPts > 0);
+  stopifnot("minPts's value cannot be higher than the number of vectors." = minPts <= n);
+
 
   regionQuery <- function (P) {
     distances <- apply(data, 2, function(D){ distanceFunction(P, D)});

@@ -20,10 +20,13 @@ OPTICS <- function (data, eps, minPts, extractDBSCAN=FALSE, distanceFunction = e
 
   stopifnot("eps has to be numeric" = is.numeric(eps));
   stopifnot("eps has to be a positive number" = eps > 0);
-
   stopifnot("minPts has to be numeric" = is.numeric(minPts));
+
+  n <- ncol(data);
   minPts <- as.integer(minPts);
-  stopifnot( "minPts has to be a positive integer." = minPts > 0);
+
+  stopifnot("minPts has to be a positive integer." = minPts > 0);
+  stopifnot("minPts's value cannot be higher than the number of vectors." = minPts <= n);
 
   getNeighbors <- function (idx) {
     P <- data[, idx];
@@ -65,7 +68,7 @@ OPTICS <- function (data, eps, minPts, extractDBSCAN=FALSE, distanceFunction = e
 
   UNDEFINED <- Inf;
 
-  n <- ncol(data);
+
 
   attr(data, "reachability-distance") <- rep(UNDEFINED, n);
 
