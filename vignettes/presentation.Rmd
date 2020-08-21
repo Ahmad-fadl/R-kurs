@@ -161,10 +161,11 @@ title("Resulting Clustering")
 
 ```{r, eval=FALSE}
 k_medoids(data, k = 2)
-kmean(data, k = 2,distanceFunction = euclidean_distance_squared)
+kmean(data, k = 2, distanceFunction = euclidean_distance_squared)
 DBSCAN(data, eps, minPts, distanceFunction = euclidean_distance)
 OPTICS(data, eps, minPts, distanceFunction = euclidean_distance)
 spectral_clustering(data, k = 1, mercer_kernel)
+hierclust(data, method=c("single","complete","average","median"))
 ```
 
 
@@ -239,4 +240,7 @@ plot(data_clust_avg)
 clusters_iris <- hierclust(distance(iris[, 3:4]))
 plot(clusters_iris)
 ```
-6. Beispiel mit richtigen Daten
+
+# Examples using Real World Data
+
+# The End
