@@ -44,6 +44,39 @@ test_that("first element in ordering always has undefined reachability", {
   expect_identical(Inf, rd[order[1]])
 })
 
-test_that("extraced DBSCAN equal to actual DBSCAN", {
+test_that("extracted DBSCAN equal to actual DBSCAN", {
   expect_identical(dbscan_cluster, optics_cluster);
+})
+
+
+test_that("reachability_plot handles faulty input correctly", {
+  expect_error(reachability_plot(1:10))
+
+  expect_error(reachability_plot(optics_data, "Zahl"))
+  expect_error(reachability_plot(optics_data, 0))
+  expect_error(reachability_plot(optics_data, -1))
+})
+
+test_that("cluster_by_reachability returns clustered data", {
+  result <- cluster_by_reachability(optics_data, .3)
+  expect_true("cluster" %in% names(attributes(result)))
+
+  cluster <- attr(result, "cluster")
+  expect_length(cluster, n)
+})
+
+test_that("cluster_by_reachability handles faulty input correctly", {
+  expect_error(cluster_by_reachability(1:10))
+
+  expect_error(cluster_by_reachability(optics_data, "Zahl"))
+  expect_error(cluster_by_reachability(optics_data, 0))
+  expect_error(cluster_by_reachability(optics_data, -1))
+})
+
+test_that("extract_DBSCAN_clustering handles faulty input correctly", {
+  expect_error(extract_DBSCAN_clustering(1:10))
+
+  expect_error(extract_DBSCAN_clustering(optics_data, "Zahl"))
+  expect_error(extract_DBSCAN_clustering(optics_data, 0))
+  expect_error(extract_DBSCAN_clustering(optics_data, -1))
 })

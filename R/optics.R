@@ -139,6 +139,20 @@ OPTICS <- function (data, eps, minPts, extractDBSCAN=FALSE, distanceFunction = e
 #' data <- OPTICS(data, .2, 25);
 #' reachability_plot(data, .15);
 reachability_plot <- function (data, threshold=NULL) {
+  stopifnot("data has to be processed by the OPTICS algorithm first" = 5 == sum(
+    c(
+      "reachability-distance",
+      "core-distance",
+      "ordering",
+      "eps",
+      "minPts"
+    ) %in% names(attributes(data))
+  ))
+
+  stopifnot("threshold has to be numeric" = is.numeric(threshold))
+  stopifnot("threshold has to be positive" = threshold > 0)
+
+
   n <- ncol(data);
   noise_indices <- seq(n)[attr(data, "reachability-distance") == -1];
   numNoise <- length(noise_indices);
@@ -159,7 +173,7 @@ reachability_plot <- function (data, threshold=NULL) {
 
 
 #' Cluster by Reachability
-#' @description Extract cluster via a reachability threshold. Using the correct threshold extracts the DBSCAN clustering. This correct threshold might for example be guessed by looking at the reachability plot with each valley being a cluster. This naive approach is inferior to the extract_DBSCAN_clustering function!
+#' @description Extract cluster via a reachability threshold. This naive approach is inferior to the extract_DBSCAN_clustering function!
 #'
 #' @param data matrix; input vectors, with each column of the matrix being a vector. \code{nrow(data)} is the ector dimension.
 #' @param threshold double threshold used to determine clusters
@@ -172,7 +186,18 @@ reachability_plot <- function (data, threshold=NULL) {
 #' data <- OPTICS(data, .2, 25);
 #' cluster_by_reachability(data, .15);
 cluster_by_reachability <- function (data, threshold) {
-  stopifnot("threshold has to be numeric!" = is.numeric(threshold));
+  stopifnot("data has to be processed by the OPTICS algorithm first" = 5 == sum(
+    c(
+      "reachability-distance",
+      "core-distance",
+      "ordering",
+      "eps",
+      "minPts"
+    ) %in% names(attributes(data))
+  ))
+
+  stopifnot("threshold has to be numeric" = is.numeric(threshold))
+  stopifnot("threshold has to be positive" = threshold > 0)
 
   n <- ncol(data)
   cluster <- c()
@@ -214,19 +239,19 @@ cluster_by_reachability <- function (data, threshold) {
 extract_DBSCAN_clustering <- function (data, eps_prime=NULL) {
   stopifnot("data has to be processed by the OPTICS algorithm first" = 5 == sum(
     c(
-      "dim",
       "reachability-distance",
-      "code-distance",
+      "core-distance",
       "ordering",
       "eps",
       "minPts"
     ) %in% names(attributes(data))
   ))
 
-
   if (missing(eps_prime)) {
     eps_prime <- attr(data, "eps");
   } else {
+    stopifnot("eps_prime has to be numeric" = is.numeric(eps_prime))
+    stopifnot("eps_prime has to be positive" = eps_prime > 0)
     stopifnot("eps_prime has to be less than or equal to the epsilon used in the OPTICS algorithm" = eps_prime <= attr(data, "eps"));
   }
 
