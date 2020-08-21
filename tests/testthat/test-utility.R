@@ -27,14 +27,15 @@ names(dev.cur()) == "RStudioGD"
 
 ### Test plot_clustered_2d_data ###
 
-test_that("plot_clustered_2d_data generate a plot when given valid input", {
-  m <- matrix(c(1,1,2,1), nrow=2)
-  attr(m, "cluster") <- c(1,2)
-
-  plot_clustered_2d_data(m)
-
-  expect_true(names(dev.cur()) == "RStudioGD")
-})
+# this does not work when checked by devtools::check() since it does not plot to RStudio
+# test_that("plot_clustered_2d_data generate a plot when given valid input", {
+#   m <- matrix(c(1,1,2,1), nrow=2)
+#   attr(m, "cluster") <- c(1,2)
+#
+#   plot_clustered_2d_data(m)
+#
+#   expect_true(names(dev.cur()) == "RStudioGD")
+# })
 
 test_that("plot_clustered_2d_data handles erroneous input correctly", {
   m <- matrix(c(1,1,2,1), nrow=2)
