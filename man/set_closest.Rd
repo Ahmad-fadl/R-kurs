@@ -20,5 +20,5 @@ assigns each vector to the closest medoid
 \examples{
 data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 medoids <- round(runif(3, 1, ncol(data)))
-k_medoids(data, medoids)
+set_closest(data, medoids)
 }
