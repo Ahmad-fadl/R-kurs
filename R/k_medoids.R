@@ -12,6 +12,8 @@
 #' data <- matrix(c(1,1.1,1,1,2,2,2,2.1), ncol=4)
 #' dissim(data, 3)
 dissim <- function(data, k){
+  stopifnot("data cannot be empty!" = length(data) > 0);
+  stopifnot("data must be a matrix!" = is.matrix(data) == TRUE);
   res <- NULL
   for (i in 0:ncol(data)) {
     current_dissim <- 0
@@ -38,6 +40,8 @@ dissim <- function(data, k){
 #' medoids <- round(runif(3, 1, ncol(data)))
 #' set_closest(data, medoids)
 set_closest <- function(data, medoids){
+  stopifnot("data cannot be empty!" = length(data) > 0);
+  stopifnot("data must be a matrix!" = is.matrix(data) == TRUE);
   res <- data
   dissims <- NULL
   for (i in medoids){
