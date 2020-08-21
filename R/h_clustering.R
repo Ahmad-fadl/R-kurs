@@ -16,7 +16,8 @@
 #' distance(data)
 distance = function(x)
 {
-  x = as.matrix(x)
+  stopifnot("data cannot be empty!" = length(x) > 0);
+  if(!is.matrix(x)) x = as.matrix(x)
   u = apply(x*x,1,sum) %*% matrix(1.0,1,nrow(x))
   sqrt(abs(u + t(u) - 2 * x %*% t(x)))
 }
@@ -36,6 +37,8 @@ distance = function(x)
 #' hclust_order(distance(data))
 hclust_order = function(mat)
 {
+  stopifnot("data cannot be empty!" = length(mat) > 0);
+  stopifnot("data must be a matrix!" = is.matrix(mat) == TRUE);
   N = nrow(mat) + 1
   hclust_order = rep(0,N)
   hclust_order[1] = mat[N-1,1]
