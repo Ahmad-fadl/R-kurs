@@ -18,10 +18,17 @@ knitr::opts_chunk$set(
 
 # The Clustering Project
 <!-- – Beschreibt kurz euer Projekt -->
+The Clustering Project was focused on the implementation of a set of clustering algorithms.
+Clusters are data points that are related to each other by some form of metric, for example by distance or spatial density. While other data may be clustered just as well, for the purposes of this project most of the data used was numeric, i.e. vectors in $\mathbb{R}^n$. Especially lower dimensional vectors are easy to visualize, and, thereby, ideal for implementing,testing, and demonstrating clustering algorithms.
+In addition, the project had to include two vignettes, a general overview and usage guide to the package, and a case study demonstrating, explaining, and differentiating the clustering algorithms.
 
 
 # Tools and Techniques
 <!-- – Beschreibt kurz welche Werkzeuge aus der Vorlesung ihr verwendet habt (S3, Tidyverse, MetaProgrammierung, ...) -->
+<!-- nested functions -->
+<!-- function factories -->
+<!-- matrix subsetting -->
+
 
 # Orginization
 <!-- – Beschreibt kurz die grobe Organisation des Teams -->
