@@ -15,8 +15,8 @@ test_that("euclidean functions produce correct output", {
 })
 
 test_that("gaussian_kernel produces correct results", {
-  expect_equal(gaussian_kernel(x, y), 1.691898e-10)
-  expect_equal(gaussian_kernel(x, y, gamma = 7.5), 1.691898e-10)
+  expect_true(gaussian_kernel(x, y) - 1.691898e-10 < eps)
+  expect_true(gaussian_kernel(x, y, gamma = 7.5) - 1.691898e-10 < eps)
 
   expect_lt(gaussian_kernel(x, y, gamma = 7.5), gaussian_kernel(x, y, gamma = 5))
   expect_lt(gaussian_kernel(x, y, gamma = 15), gaussian_kernel(x, y, gamma = 7.5))

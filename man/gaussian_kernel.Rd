@@ -20,5 +20,8 @@ returns the gaussian kernel of \code{x} and \code{y} using \code{gamma}
 \code{gaussian_core} calculates the gaussian kernel of two given vectors \code{x} and \code{y} of the same length using \code{gamma}.
 }
 \examples{
-
+x <- c(1,2,3)
+y <- c(2,3,4)
+gaussian_kernel(x, y)
+# 1.691898e-10
 }

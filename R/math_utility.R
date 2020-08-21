@@ -77,7 +77,10 @@ euclidean_distance_squared <- function(x,y) {
 #' @export
 #'
 #' @examples
-#'
+#' x <- c(1,2,3)
+#' y <- c(2,3,4)
+#' gaussian_kernel(x, y)
+#' # 1.691898e-10
 gaussian_kernel <- function(x, y, gamma = 7.5) {
   stopifnot("gamma has to be a positive number" = gamma > 0)
   stopifnot("x and y have to be of equal length" = length(x) == length(y))
