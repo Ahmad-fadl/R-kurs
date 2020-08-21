@@ -18,7 +18,7 @@ double; Euclidean distance between \code{x} and \code{y}
 \code{euclidean_distance_sqared} calculates the squared Euclidean distance between the given vectors.
 }
 \examples{
-x = c(1,2,3)
-y = c(2,3,4)
+x <- c(1,2,3)
+y <- c(2,3,4)
 euclidean_distance_squared(x, y)
 }

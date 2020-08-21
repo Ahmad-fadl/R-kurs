@@ -19,3 +19,6 @@ returns the gaussian kernel of \code{x} and \code{y} using \code{gamma}
 \description{
 \code{gaussian_core} calculates the gaussian kernel of two given vectors \code{x} and \code{y} of the same length using \code{gamma}.
 }
+\examples{
+
+}

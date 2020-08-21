@@ -16,7 +16,7 @@ double; infinity-norm of \code{x}
 \code{infinity_norm} calculates the infinity-norm of a vector. Also known as maximum norm.
 }
 \examples{
-x = c(1,2,3)
+x <- c(1,2,3)
 infinity_norm(x)
 # 3
 }

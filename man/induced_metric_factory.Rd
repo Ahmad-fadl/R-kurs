@@ -17,8 +17,8 @@ This function returns a function calculating the metric induced by the given vec
 }
 \examples{
 euclidean_metric <- induced_metric_factory(euclidean_norm)
-x = c(1,2,3)
-y = c(2,3,4)
+x <- c(1,2,3)
+y <- c(2,3,4)
 euclidean_metric(x, y)
 # 1.732051
 }

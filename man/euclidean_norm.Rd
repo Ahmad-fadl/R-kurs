@@ -16,7 +16,7 @@ double; Euclidean norm of \code{x}
 \code{euclidean_norm} calculates the Euclidean norm of a vector.
 }
 \examples{
-x = c(1,2,3)
+x <- c(1,2,3)
 euclidean_norm(x)
 # 3.741657
 }

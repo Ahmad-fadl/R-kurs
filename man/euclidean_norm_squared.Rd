@@ -16,7 +16,7 @@ double; squared Euclidean norm of \code{x}
 \code{euclidean_norm_squared} calculates the squared Euclidean norm of a vector.
 }
 \examples{
-x = c(1,2,3)
+x <- c(1,2,3)
 euclidean_norm_squared(x)
 # 14
 }

@@ -18,7 +18,7 @@ double; p-norm of \code{x}
 \code{p_norm} calculates the p-norm of a vector for a given \code{p}.
 }
 \examples{
-x = c(1,2,3)
+x <- c(1,2,3)
 p_norm(x, 2)
 # 3.741657
 }

@@ -16,7 +16,7 @@ function; A function which computes the p-norm for the given \code{p}.
 Generate a function calculating the p-norm for the given p.
 }
 \examples{
-two_norm = p_norm_factory(2)
+two_norm <- p_norm_factory(2)
 two_norm(c(1,2,3))
 # 3.741657
 }

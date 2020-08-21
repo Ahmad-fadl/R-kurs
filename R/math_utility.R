@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-#' x = c(1,2,3)
+#' x <- c(1,2,3)
 #' euclidean_norm_squared(x)
 #' # 14
 euclidean_norm_squared <- function (x) {
@@ -25,7 +25,7 @@ euclidean_norm_squared <- function (x) {
 #' @export
 #'
 #' @examples
-#' x = c(1,2,3)
+#' x <- c(1,2,3)
 #' euclidean_norm(x)
 #' # 3.741657
 euclidean_norm <- function (x) {
@@ -43,8 +43,8 @@ euclidean_norm <- function (x) {
 #' @export
 #'
 #' @examples
-#' x = c(1,2,3)
-#' y = c(2,3,4)
+#' x <- c(1,2,3)
+#' y <- c(2,3,4)
 #' euclidean_distance(x, y)
 #' # 1.732051
 euclidean_distance <- function(x,y) {
@@ -60,8 +60,8 @@ euclidean_distance <- function(x,y) {
 #' @export
 #'
 #' @examples
-#' x = c(1,2,3)
-#' y = c(2,3,4)
+#' x <- c(1,2,3)
+#' y <- c(2,3,4)
 #' euclidean_distance_squared(x, y)
 euclidean_distance_squared <- function(x,y) {
   euclidean_norm_squared(x-y)
@@ -76,7 +76,8 @@ euclidean_distance_squared <- function(x,y) {
 #' @return returns the gaussian kernel of \code{x} and \code{y} using \code{gamma}
 #' @export
 #'
-# #' @examples
+#' @examples
+#'
 gaussian_kernel <- function(x, y, gamma = 7.5) {
   stopifnot("gamma has to be a positive number" = gamma > 0)
   stopifnot("x and y have to be of equal length" = length(x) == length(y))
@@ -114,7 +115,7 @@ gaussian_kernel_with_fixed_gamma <- function(gamma) {
 #' @export
 #'
 #' @examples
-#' x = c(1,2,3)
+#' x <- c(1,2,3)
 #' infinity_norm(x)
 #' # 3
 infinity_norm <- function(x) {
@@ -152,7 +153,7 @@ one_norm <- function(x) {
 #' @export
 #'
 #' @examples
-#' x = c(1,2,3)
+#' x <- c(1,2,3)
 #' p_norm(x, 2)
 #' # 3.741657
 p_norm <- function(x, p) {
@@ -169,10 +170,13 @@ p_norm <- function(x, p) {
 #' @export
 #'
 #' @examples
-#' two_norm = p_norm_factory(2)
+#' two_norm <- p_norm_factory(2)
 #' two_norm(c(1,2,3))
 #' # 3.741657
 p_norm_factory <- function(p) {
+  stopifnot("p has to be numeric" = is.numeric(p))
+  p <- as.integer(p)
+  stopifnot("p has to be a positive integer" = p > 0)
   function(x) {
     p_norm(x, p);
   }
@@ -188,8 +192,8 @@ p_norm_factory <- function(p) {
 #'
 #' @examples
 #' euclidean_metric <- induced_metric_factory(euclidean_norm)
-#' x = c(1,2,3)
-#' y = c(2,3,4)
+#' x <- c(1,2,3)
+#' y <- c(2,3,4)
 #' euclidean_metric(x, y)
 #' # 1.732051
 induced_metric_factory <- function(vector_norm) {
