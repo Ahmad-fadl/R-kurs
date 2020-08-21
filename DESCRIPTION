@@ -25,6 +25,7 @@ Authors@R:
                comment = c(ORCID = "YOUR-ORCID-ID"))
        )
 Description: This package implements a variety of clustering algorithms and some related utility as part of the R-Course during the summer term of 2020.
+Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
