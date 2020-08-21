@@ -185,6 +185,21 @@ suppressWarnings(clustering::plot_clustered_2d_data(kmean(X, 2), show_noise = FA
 
 suppressWarnings(clustering::plot_clustered_2d_data(kmean(X, 3), show_noise = FALSE, show_legend = TRUE))
 ```
+## Example data(Usa state centers) cluster centers of USA cities
+
+```{r}
+require(stats)
+x = matrix(nrow = 2,ncol = length(state.center$x))
+x[1,] = state.center$x
+x[2,] = state.center$y
+plot(x[1,],x[2,])
+plot_clustered_2d_data(kmean(x,4))
+plot_clustered_2d_data(kmean(x,5))
+plot_clustered_2d_data(kmean(x,6))
+plot_clustered_2d_data(kmean(x,7))
+plot_clustered_2d_data(kmean(x,8))
+plot_clustered_2d_data(kmean(x,9))
+```
 
 # Hierarchical Clustering
 
