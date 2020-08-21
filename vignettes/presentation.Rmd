@@ -20,12 +20,13 @@ library(clustering)
 ```
 
 # Introduction
-
+In this project, we implement various clustering algorithms such as K-Means, K-Medoids, Hierarchical Clustering, Spectral clustering, and density based clustering algorithms such as DBSCAN, and OPTICS, and finally put them together to form a R package.
 
 ## The Goal of Clustering
 
 - given a set of input data
-- try to identify related vectors
+- imput data is grouped together to form clusters where similar objects are grouped together
+- try to identify related vectors based on distance metric
 - groups of related vectors are called a ***cluster***
 
 ```{r, echo=FALSE, fig.asp=.55, warning=FALSE}
@@ -94,11 +95,7 @@ title("Resulting Clustering (k = 2)")
 -is a method of groubing data
 - used to partition a data set into k clusters
 - each observation belongs to the cluster with the nearest mean
--Algorithm :
-- 1 chose k random means for our 4 clusters.
-- 2 assign every opservation to the cluster with the nearest mean
-- 3 calculate the new mean of every cluster
-- 4 if new means = old means then we are done we have our      clusters, otherwise go back to 2.
+
 
 ```{r, fig.asp=.35, cache=TRUE, echo=FALSE}
 par(mfrow=c(1,2), mar=c(3,3,2,1))
@@ -156,6 +153,7 @@ title("Resulting Clustering")
 - density-based algorithms (DBSCAN, OPTICS) get passed $\varepsilon$ and minimum-points values
 - spectral clustering may be passed a dimension to project into
 - algorithms working with distances may be passed a custom metric
+- hierarchical clustering method takes input data as matrix and distance linkage method as input and returns clusters, height, order, labels.
 
 <!-- !! TODO: add your algorithms signature !!-->
 
@@ -225,7 +223,7 @@ title(main = "Extracted DBSCAN", xlab = "")
 - At each step of the algorithm, the two clusters that are the most similar are combined into a new bigger cluster (nodes).
 - This procedure is iterated until all points are member of just one single big cluster (root).
 - The result is a tree which can be plotted as a dendrogram.
-- The distance metric: single, complete, average, median cab used to to group objects into clusters.
+- The distance metric: single, complete, average, median can used to to group objects into clusters.
 
 ## Real Data Example: data(USArrests and Iris) with different cluster agglomeration methods
 
