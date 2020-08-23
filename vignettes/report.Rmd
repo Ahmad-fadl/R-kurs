@@ -18,20 +18,30 @@ knitr::opts_chunk$set(
 
 # The Clustering Project
 <!-- – Beschreibt kurz euer Projekt -->
-The Clustering Project was focused on the implementation of a set of clustering algorithms.
-Clusters are data points that are related to each other by some form of metric, for example by distance or spatial density. While other data may be clustered just as well, for the purposes of this project most of the data used was numeric, i.e. vectors in $\mathbb{R}^n$. Especially lower dimensional vectors are easy to visualize, and, thereby, ideal for implementing,testing, and demonstrating clustering algorithms.
+The Clustering Project was focused on the implementation of a set of clustering algorithms in the `R` language.
+Clusters are data points that are related to each other by some form of metric, for example by distance or spatial density. While other data may be clustered just as well, for the purposes of this project most of the data used was numeric, i.e. vectors in $\mathbb{R}^n$. Lower dimensional vectors are especially easy to visualize, and, thereby, ideal for implementing,testing, and demonstrating clustering algorithms.
 In addition, the project had to include two vignettes, a general overview and usage guide to the package, and a case study demonstrating, explaining, and differentiating the clustering algorithms.
 
 
 # Tools and Techniques
 <!-- – Beschreibt kurz welche Werkzeuge aus der Vorlesung ihr verwendet habt (S3, Tidyverse, MetaProgrammierung, ...) -->
+
+<!-- TODO: Connect these text snippets -->
+
+<!-- matrix subsetting -->
+As data used throughout the package is stored in matrices, we made extensive use of the `R` subsetting syntax to access entire vectors - stored as the columns of matrices - with single access operations.
+
 <!-- nested functions -->
 <!-- function factories -->
-<!-- matrix subsetting -->
+In `R`, functions are objects, hence nested functions and function factories are inherently supported, as well as straightforward to implement and use. By nesting helper functions inside the function scope where they are exclusively used, we kept many sections of our code clean and comprehensible. Function factories were employed to generate generalized functions like the `induced_metric_factory` which produces a function returned the induced metric for any given vector norm.
+
+<!-- markdown and knitr -->
+`R` markdown, especially in combination with **knitr**, offered us a convenient way to create all documents which are part of this project, namely the two Vignettes, the presentation, and this report itself. The integration of those features into RStudio is seamless and offers neat features, e.g. the execution of `R` snippets in place which is significantly faster than rendering the entire document to check on every change.
 
 
 # Orginization
 <!-- – Beschreibt kurz die grobe Organisation des Teams -->
+KEKW
 
 
 <!-- #### These are the individual Sections, everyone has to do these themselves! #### -->
