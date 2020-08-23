@@ -18,8 +18,7 @@ knitr::opts_chunk$set(
 
 # The Clustering Project
 <!-- – Beschreibt kurz euer Projekt -->
-The Clustering Project was focused on the implementation of a set of clustering algorithms in the `R` language.
-Clusters are data points that are related to each other by some form of metric, for example by distance or spatial density. While other data may be clustered just as well, for the purposes of this project most of the data used was numeric, i.e. vectors in $\mathbb{R}^n$. Lower dimensional vectors are especially easy to visualize, and, thereby, ideal for implementing,testing, and demonstrating clustering algorithms.
+In this project we implement various clustering algorithms and finally form a `R` package and released its final version. Clusters are group of similar data points that are related to each other by some form of metric, for example by distance or spatial density. While other data may be clustered just as well, for the purposes of this project most of the data used was numeric, i.e. vectors in $\mathbb{R}^n$. Lower dimensional vectors are especially easy to visualize, and, thereby, ideal for implementing,testing, and demonstrating clustering algorithms.
 In addition, the project had to include two vignettes, a general overview and usage guide to the package, and a case study demonstrating, explaining, and differentiating the clustering algorithms.
 
 
@@ -41,16 +40,20 @@ In `R`, functions are objects, hence nested functions and function factories are
 
 # Orginization
 <!-- – Beschreibt kurz die grobe Organisation des Teams -->
-All communication related to this project was done online. We created a dedicated **Discord** server and **WhatsApp** group for the project, as well as a **git** repository on **github**. Communication was mostly done via text messaging and the issue tracker in the **github** repository with the occasional voice chat meeting in **Discord** mixed in.
+All communication related to this project was done online. We created a dedicated **Discord** server and **WhatsApp** group for the project, as well as a **git** repository on **github**. Communication was mostly done via text messaging and the progress and issued related to the project was tracked by using the issue tracker in the **github** repository with the occasional voice chat meeting in **Discord** mixed in.
 
-The algorithms to implement were split between the team members with additional work related to a given algorithm being done by the implementer as well, e.g. documentation, presentation, vignettes, etc.
+The algorithms which were to be implemented were split among the team members with additional work related to a given algorithm being done by the respective assigned team member as well. For e.g., code testing, documentation, presentation of algorithms, implementation, results of experiments, and finally report writing. We used `R Studo` IDE for the project implementation. 
 
+For the presentation of out project, we used the OBS software to record our screen and voice for participation. Everyone was responsible to do their own parts and then we collectively merged all the part videos into one big video file using some available editing tools and skills.
 
 <!-- #### These are the individual Sections, everyone has to do these themselves! #### -->
 
 # My Contribution
 <!-- – Beschreibe kurz deine Beteiligung am Projekt -->
 
+
+
+*Mitodru Niyogi* He has implemented the hierarchical clustering algorithm as a part of this project. He has also implemented test cases for code testing, case studies, presentation, vignettes related to hierarchical clustering in R. He was also responsible to collaborate with my team members in discussions and initiating the team to move forward with the approaches and helping others.
 # Personal Comments and Thoughts
 <!-- – Ggf weitere Bemerkung: War die Projektarbeit motivierend/frustrierend? Hat arbeiten im Team -->
 <!-- gut funktioniert? ... -->
