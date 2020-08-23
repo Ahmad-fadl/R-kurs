@@ -36,12 +36,14 @@ As data used throughout the package is stored in matrices, we made extensive use
 In `R`, functions are objects, hence nested functions and function factories are inherently supported, as well as straightforward to implement and use. By nesting helper functions inside the function scope where they are exclusively used, we kept many sections of our code clean and comprehensible. Function factories were employed to generate generalized functions like the `induced_metric_factory` which produces a function returned the induced metric for any given vector norm.
 
 <!-- markdown and knitr -->
-`R` markdown, especially in combination with **knitr**, offered us a convenient way to create all documents which are part of this project, namely the two Vignettes, the presentation, and this report itself. The integration of those features into RStudio is seamless and offers neat features, e.g. the execution of `R` snippets in place which is significantly faster than rendering the entire document to check on every change.
+`R` Markdown, especially in combination with **knitr**, offered us a convenient way to create all documents which are part of this project, namely the two Vignettes, the presentation, and this report itself. The integration of those features into RStudio is seamless and offers neat features, e.g. the execution of `R` snippets in place which is significantly faster than rendering the entire document whenever testing small changes.
 
 
 # Orginization
 <!-- – Beschreibt kurz die grobe Organisation des Teams -->
-KEKW
+All communication related to this project was done online. We created a dedicated **Discord** server and **WhatsApp** group for the project, as well as a **git** repository on **github**. Communication was mostly done via text messaging and the issue tracker in the **github** repository with the occasional voice chat meeting in **Discord** mixed in.
+
+The algorithms to implement were split between the team members with additional work related to a given algorithm being done by the implementer as well, e.g. documentation, presentation, vignettes, etc.
 
 
 <!-- #### These are the individual Sections, everyone has to do these themselves! #### -->
